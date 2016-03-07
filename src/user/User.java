@@ -37,6 +37,12 @@ public class User
 		this.lastName = lastName;
 		this.username = username;
 		this.email = email;
+		this.securityQuestion = "";
+		this.securityAnswer = "";
+		this.groups = new ArrayList<Group>();
+		this.tasks = new ArrayList<Task>();
+		this.completedTasks = new ArrayList<Task>();
+		this.categories = new ArrayList<String>();
 	}
 	
 	/**

@@ -14,7 +14,6 @@ import task.Task;
  */
 public class TaskTest
 {
-	public TaskTest(){}
 	/**
 	 * Creates a task object to test.
 	 * Task object is tested by:

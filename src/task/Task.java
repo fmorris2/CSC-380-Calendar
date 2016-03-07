@@ -57,8 +57,9 @@ public class Task
 	 */
 	public Comment addComment(String author, LocalDateTime date, String comment)
 	{
-		comments.push(new Comment(author,date,comment));
-		return new Comment(author,date,comment);
+		Comment c = new Comment(author,date,comment);
+		comments.push(c);
+		return c;
 	}
 	
 	
