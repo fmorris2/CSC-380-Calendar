@@ -22,8 +22,11 @@ public class TaskTest
 	@Test
 	public void test()
 	{
+		//Create new task to test
 		Task t = new Task();
+		//Add a new comment to that task
 		Comment c = t.addComment("Test Author", LocalDateTime.of(2016, Month.MARCH, 07, 10, 18, 0, 0), "Test comment.");
+		//Check that the new comment is there
 		if(!t.getComments().contains(c))
 			fail("Comment not added.");
 	}

@@ -22,6 +22,7 @@ public class User
 	private String firstName;
 	private String lastName;
 	private String username;
+	private String password;
 	private String email;
 	private String securityQuestion;
 	private String securityAnswer;
@@ -30,12 +31,32 @@ public class User
 	private ArrayList<Task> completedTasks;
 	private ArrayList<String> categories;
 	
-	
-	public User(String firstName, String lastName, String username, String email)
+	/**
+	 * Default Constructor for testing User class
+	 */
+	public User()
+	{
+		this.firstName = "TestFirstName";
+		this.lastName = "TestLastName";
+		this.username = "TestUsername";
+		this.password = "TestPassword";
+		this.email = "TestEmail@TestEmail.com";
+		this.securityQuestion = "Test security question?";
+		this.securityAnswer = "Test security answer.";
+		this.groups = new ArrayList<Group>();
+		this.tasks = new ArrayList<Task>();
+		this.completedTasks = new ArrayList<Task>();
+		this.categories = new ArrayList<String>();
+	}
+	/**
+	 * This is a parameterized constructor for User
+	 */
+	public User(String firstName, String lastName, String username, String password, String email)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
+		this.password = password;
 		this.email = email;
 		this.securityQuestion = "";
 		this.securityAnswer = "";
@@ -129,6 +150,8 @@ public class User
 	public void setLastName(String lastName) {this.lastName = lastName;}
 	public String getUsername() {return username;}
 	public void setUsername(String username) {this.username = username;}
+	public String getPassword() {return password;}
+	public void setPassword(String password) {this.password = password;}
 	public String getEmail() {return email;}
 	public void setEmail(String email) {this.email = email;}
 	public String getSecurityQuestion() {return securityQuestion;}

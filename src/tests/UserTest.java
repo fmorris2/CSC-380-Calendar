@@ -30,30 +30,47 @@ public class UserTest {
 	 */
 	@Test
 	public void test() {
-		User user = new User("TestFirstName", "TestLastName", "TestUsername", "TestEmail@TestEmail.com");
-		//Add group
+		//Create new user to test
+		User user = new User();
+		//Add group to user
 		Group g = user.addGroup(new Group());
+		//Check if new group has been added
 		if(!user.getGroups().contains(g))
 			fail("Group not added. (addGroup)");
+		//Remove group from user
 		g = user.removeGroup(new Group());
+		//Check if group was removed
 		if(user.getGroups().contains(g))
 			fail("Group not removed. (removeGroup)");
+		//Add new task to user
 		Task t = user.addNewTask(new Task(LocalDateTime.now(), Duration.ofHours(1), "Test Task", "This is a test task.", "Test category", Priority.HIGH));
+		//Check if task was added
 		if(!user.getTasks().contains(t))
 			fail("Task not added. (addNewTask)");
+		//Check if it added the new category
 		if(!user.getCategories().contains("Test category"))
 			fail("Category not added. (addNewTask)");
+		//Complete task
 		t = user.completeTask(t);
+		//Check if task was removed from tasks
 		if(user.getTasks().contains(t))
 			fail("Task not removed from list. (completeTask)");
+		//Check if task was added to completed tasks
 		if(!user.getCompletedTasks().contains(t))
 			fail("Task not added to completed tasks. (completeTask)");
+		//Add another task
 		t = user.addNewTask(new Task(LocalDateTime.now(), Duration.ofHours(1), "Test Task", "This is a test task.", "Test category", Priority.HIGH));
+		//Check if duplicate category was added
+		if(user.getCategories().size() > 1)
+			fail("Added duplicate category. (addNewTask)");
+		//Remove task
 		user.removeTask(t);
+		//Check if task was removed
 		if(user.getTasks().contains(t))
 			fail("Task not removed. (removeTask)");
-		t = user.addNewTask(new Task(LocalDateTime.now(), Duration.ofHours(1), "Test Task", "This is a test task.", "Test category", Priority.HIGH));
+		//Remove task from completed tasks
 		user.removeCompletedTask(t);
+		//Check that it was removed
 		if(user.getCompletedTasks().contains(t))
 			fail("Task not removed. (removeCompletedTask)");
 	}
