@@ -5,5 +5,4 @@ public class Main {
 	{
 		System.out.println("Tons of Cool Stuff.");
 	}
-
 }
