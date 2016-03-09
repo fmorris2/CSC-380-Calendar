@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -30,49 +31,58 @@ public class UserTest {
 	 */
 	@Test
 	public void test() {
-		//Create new user to test
+		//Create User, Group, and Task to test with
 		User user = new User();
-		//Add group to user
-		Group g = user.addGroup(new Group());
+		Group g = new Group();
+		Task t = new Task();
+		
+		/**Add group to user (addGroup)*/
+		user.addGroup(g);
 		//Check if new group has been added
-		if(!user.getGroups().contains(g))
-			fail("Group not added. (addGroup)");
-		//Remove group from user
-		g = user.removeGroup(new Group());
+		ArrayList<Group> gArr = new ArrayList<Group>();
+		gArr.add(g);
+		assertEquals(gArr,user.getGroups());
+		
+		/**Remove group from user (removeGroup)*/
+		user.removeGroup(g);
 		//Check if group was removed
-		if(user.getGroups().contains(g))
-			fail("Group not removed. (removeGroup)");
-		//Add new task to user
-		Task t = user.addNewTask(new Task(LocalDateTime.now(), Duration.ofHours(1), "Test Task", "This is a test task.", "Test category", Priority.HIGH));
+		gArr = new ArrayList<Group>();
+		assertEquals(gArr, user.getGroups());
+		
+		/**Add new task to user (addNewTask)*/
+		user.addNewTask(t);
+		ArrayList<Task> tArr = new ArrayList<Task>();
+		tArr.add(t);
+		ArrayList<String> cArr = new ArrayList<String>();
+		cArr.add(t.getCategory());
 		//Check if task was added
-		if(!user.getTasks().contains(t))
-			fail("Task not added. (addNewTask)");
+		assertEquals(tArr,user.getTasks());
 		//Check if it added the new category
-		if(!user.getCategories().contains("Test category"))
-			fail("Category not added. (addNewTask)");
-		//Complete task
-		t = user.completeTask(t);
+		assertEquals(cArr,user.getCategories());
+		
+		/**Complete task (completeTask)*/
+		user.completeTask(t);
+		tArr = new ArrayList<Task>();
 		//Check if task was removed from tasks
-		if(user.getTasks().contains(t))
-			fail("Task not removed from list. (completeTask)");
+		assertEquals(tArr,user.getTasks());
 		//Check if task was added to completed tasks
-		if(!user.getCompletedTasks().contains(t))
-			fail("Task not added to completed tasks. (completeTask)");
-		//Add another task
-		t = user.addNewTask(new Task(LocalDateTime.now(), Duration.ofHours(1), "Test Task", "This is a test task.", "Test category", Priority.HIGH));
+		tArr.add(t);
+		assertEquals(tArr,user.getCompletedTasks());
+		
+		/**Add another task (addNewTask)*/
+		user.addNewTask(t);
 		//Check if duplicate category was added
-		if(user.getCategories().size() > 1)
-			fail("Added duplicate category. (addNewTask)");
-		//Remove task
+		assertEquals(cArr,user.getCategories());
+			
+		/**Remove task*/
 		user.removeTask(t);
 		//Check if task was removed
-		if(user.getTasks().contains(t))
-			fail("Task not removed. (removeTask)");
+		tArr = new ArrayList<Task>();
+		assertEquals(tArr,user.getTasks());
 		//Remove task from completed tasks
 		user.removeCompletedTask(t);
 		//Check that it was removed
-		if(user.getCompletedTasks().contains(t))
-			fail("Task not removed. (removeCompletedTask)");
+		assertEquals(tArr,user.getCompletedTasks());
 	}
 
 }
