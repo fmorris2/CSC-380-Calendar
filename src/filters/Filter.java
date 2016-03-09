@@ -28,7 +28,7 @@ public abstract class Filter
 		return new OrFilter(this, other);
 	}
 	
-	public Task getTask()
+	protected Task getTask()
 	{
 		return task;
 	}
