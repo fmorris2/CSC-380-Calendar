@@ -22,7 +22,7 @@ public class TaskTest
 	 * 		- Adding a comment
 	 */
 	@Test
-	public void test()
+	public void testAddComment()
 	{
 		//Create new task to test
 		Task t = new Task();
