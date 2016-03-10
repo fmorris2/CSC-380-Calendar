@@ -8,7 +8,7 @@ import task.Task;
 
 public class CreationDateFilter extends DateFilter
 {
-	public CreationDateFilter(LocalDateTime date, Order order)
+	public CreationDateFilter(LocalDateTime date, Order... order)
 	{
 		super(date, order);
 	}
@@ -16,12 +16,19 @@ public class CreationDateFilter extends DateFilter
 	@Override
 	public boolean accept(Task t)
 	{
-		if(order == Order.BEFORE)
-			return date.isBefore(t.getCreationDate());
-		else if(order == Order.AFTER)
-			return date.isAfter(t.getCreationDate());
+		for(Order o : order)
+		{
+			if(o == Order.BEFORE && date.isBefore(t.getCreationDate()))
+				continue;
+			else if(o == Order.AFTER && date.isAfter(t.getCreationDate()))
+				continue;
+			else if(o == Order.EQUAL && date.equals(t.getCreationDate()))
+				continue;
+			
+			return false;
+		}
 		
-		return date.equals(t.getCreationDate());
+		return true;
 	}
 	
 }

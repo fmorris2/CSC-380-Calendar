@@ -8,7 +8,7 @@ import task.Task;
 
 public class DueDateFilter extends DateFilter
 {
-	public DueDateFilter(LocalDateTime date, Order order)
+	public DueDateFilter(LocalDateTime date, Order... order)
 	{
 		super(date, order);
 	}
@@ -16,11 +16,18 @@ public class DueDateFilter extends DateFilter
 	@Override
 	public boolean accept(Task t)
 	{
-		if(order == Order.BEFORE)
-			return date.isBefore(t.getDueDate());
-		else if(order == Order.AFTER)
-			return date.isAfter(t.getDueDate());
+		for(Order o : order)
+		{
+			if(o == Order.BEFORE && date.isBefore(t.getDueDate()))
+				continue;
+			else if(o == Order.AFTER && date.isAfter(t.getDueDate()))
+				continue;
+			else if(o == Order.EQUAL && date.equals(t.getDueDate()))
+				continue;
+			
+			return false;
+		}
 		
-		return date.equals(t.getDueDate());
+		return true;
 	}
 }
