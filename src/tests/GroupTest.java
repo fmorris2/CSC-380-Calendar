@@ -26,7 +26,7 @@ public class GroupTest {
 		
 		//Check if new members can be added to the group
 		User userTest = new User("Bob", "Greg", "Username", "Password", "Email");
-		test.addUser(userTest, true, true, true);
+		test.addUser(userTest, new Permissions(true, true, true));
 		if(!test.getGroupMembers().contains(userTest))
 			fail("User was not added to group list (addUser)");
 		if(!test.getUserPermissions().containsKey(userTest))

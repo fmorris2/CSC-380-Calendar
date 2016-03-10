@@ -35,14 +35,6 @@ public class User
 	 */
 	public User()
 	{
-		this.firstName = "TestFirstName";
-		this.lastName = "TestLastName";
-		this.username = "TestUsername";
-		this.password = "TestPassword";
-		this.email = "TestEmail@TestEmail.com";
-		this.securityQuestion = "Test security question?";
-		this.securityAnswer = "Test security answer.";
-		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
 	}
