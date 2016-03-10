@@ -62,16 +62,8 @@ public class UserTest
 		user.addNewTask(t);
 		ArrayList<Task> tArr = new ArrayList<Task>();
 		tArr.add(t);
-		ArrayList<String> cArr = new ArrayList<String>();
-		cArr.add(t.getCategory());
 		//Check if task was added
 		assertEquals(tArr,user.getTasks());
-		//Check if it added the new category
-		assertEquals(cArr,user.getCategories());
-		
-		user.addNewTask(t);
-		//Check if duplicate category was added
-		assertEquals(cArr,user.getCategories());
 	}
 	
 	@Test

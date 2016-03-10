@@ -29,7 +29,6 @@ public class User
 	private ArrayList<Group> groups;
 	private ArrayList<Task> tasks;
 	private ArrayList<Task> completedTasks;
-	private ArrayList<String> categories;
 	
 	/**
 	 * Default Constructor for testing User class
@@ -46,7 +45,6 @@ public class User
 		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
-		this.categories = new ArrayList<String>();
 	}
 	/**
 	 * This is a parameterized constructor for User
@@ -63,7 +61,6 @@ public class User
 		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
-		this.categories = new ArrayList<String>();
 	}
 	
 	/**
@@ -99,8 +96,6 @@ public class User
 	public Task addNewTask(Task task)
 	{
 		this.tasks.add(task);
-		if(!this.categories.contains(task.getCategory()))
-			categories.add(task.getCategory());
 		return task;
 	}
 	
@@ -164,6 +159,4 @@ public class User
 	public void setTasks(ArrayList<Task> tasks) {this.tasks = tasks;}
 	public ArrayList<Task> getCompletedTasks() {return completedTasks;}
 	public void setCompletedTasks(ArrayList<Task> completedTasks) {this.completedTasks = completedTasks;}
-	public ArrayList<String> getCategories() {return categories;}
-	public void setCategories(ArrayList<String> categories) {this.categories = categories;}
 }
