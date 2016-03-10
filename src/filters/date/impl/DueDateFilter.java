@@ -1,9 +1,9 @@
-package filters.impl;
+package filters.date.impl;
 
 import java.time.LocalDateTime;
 
-import filters.DateFilter;
 import filters.Order;
+import filters.date.DateFilter;
 import task.Task;
 
 public class DueDateFilter extends DateFilter

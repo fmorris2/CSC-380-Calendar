@@ -1,6 +1,9 @@
-package filters;
+package filters.date;
 
 import java.time.LocalDateTime;
+
+import filters.Filter;
+import filters.Order;
 
 public abstract class DateFilter extends Filter
 {

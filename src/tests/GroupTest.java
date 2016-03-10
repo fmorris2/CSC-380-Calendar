@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import filters.Filter;
 import filters.Order;
+import filters.date.impl.DueDateFilter;
 import filters.impl.CategoryFilter;
-import filters.impl.DueDateFilter;
 
 public class GroupTest {
 
