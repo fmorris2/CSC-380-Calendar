@@ -17,5 +17,5 @@ public class CategoryFilter extends Filter
 	{
 		return t.getCategory().equalsIgnoreCase(category);
 	}
-
+	
 }

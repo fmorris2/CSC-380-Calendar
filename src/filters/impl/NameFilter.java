@@ -17,5 +17,5 @@ public class NameFilter extends Filter
 	{
 		return t.getTaskName().equalsIgnoreCase(name);
 	}
-
+	
 }

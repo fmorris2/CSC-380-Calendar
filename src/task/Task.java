@@ -3,9 +3,11 @@ package task;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Stack;
+
 /**
- * This is the Task class that is used to store
- * the various tasks the user would like to save.
+ * This is the Task class that is used to store the various tasks the user would
+ * like to save.
+ * 
  * @author Mike Mekker
  */
 public class Task
@@ -33,11 +35,13 @@ public class Task
 		this.priority = Priority.HIGH;
 		this.comments = new Stack<Comment>();
 	}
+	
 	/**
 	 * This is a parameterized constructor for Task
 	 */
 	public Task(LocalDateTime dueDate, Duration duration, String taskName, String taskDescription, String category,
-			Priority priority) {
+			Priority priority)
+	{
 		this.dueDate = dueDate;
 		this.duration = duration;
 		this.taskName = taskName;
@@ -50,30 +54,60 @@ public class Task
 	
 	/**
 	 * This method adds a comment object to the comment stack
-	 * @param author - Author of the comment
-	 * @param date - The time of which the comment was made
-	 * @param comment - The comment to be stored
+	 * 
+	 * @param author
+	 *            - Author of the comment
+	 * @param date
+	 *            - The time of which the comment was made
+	 * @param comment
+	 *            - The comment to be stored
 	 * @return - Copy of the comment
 	 */
 	public Comment addComment(String author, LocalDateTime date, String comment)
 	{
-		Comment c = new Comment(author,date,comment);
+		Comment c = new Comment(author, date, comment);
 		comments.push(c);
 		return c;
 	}
 	
-	
-	
-	
-	
-	
 	/* Getters & Setters */
-	public LocalDateTime getCreationDate(){return creationDate;}
-	public LocalDateTime getDueDate(){return dueDate;}
-	public String getTaskName(){return taskName;}
-	public String getTaskDescription(){return taskDescription;}
-	public String getCategory(){return category;}
-	public Priority getPriority(){return priority;}
-	public Duration getDuration(){return duration;}
-	public Stack<Comment> getComments(){return comments;}
+	public LocalDateTime getCreationDate()
+	{
+		return creationDate;
+	}
+	
+	public LocalDateTime getDueDate()
+	{
+		return dueDate;
+	}
+	
+	public String getTaskName()
+	{
+		return taskName;
+	}
+	
+	public String getTaskDescription()
+	{
+		return taskDescription;
+	}
+	
+	public String getCategory()
+	{
+		return category;
+	}
+	
+	public Priority getPriority()
+	{
+		return priority;
+	}
+	
+	public Duration getDuration()
+	{
+		return duration;
+	}
+	
+	public Stack<Comment> getComments()
+	{
+		return comments;
+	}
 }

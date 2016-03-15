@@ -15,24 +15,33 @@ public class Comment
 		comment = c;
 	}
 	
-	
-	
-	public String getComment() {
+	public String getComment()
+	{
 		return comment;
 	}
-	public void setComment(String comment) {
+	
+	public void setComment(String comment)
+	{
 		this.comment = comment;
 	}
-	public String getAuthor() {
+	
+	public String getAuthor()
+	{
 		return author;
 	}
-	public void setAuthor(String author) {
+	
+	public void setAuthor(String author)
+	{
 		this.author = author;
 	}
-	public LocalDateTime getDate() {
+	
+	public LocalDateTime getDate()
+	{
 		return date;
 	}
-	public void setDate(LocalDateTime date) {
+	
+	public void setDate(LocalDateTime date)
+	{
 		this.date = date;
 	}
 }

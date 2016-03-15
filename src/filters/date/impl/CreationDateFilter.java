@@ -12,17 +12,17 @@ public class CreationDateFilter extends DateFilter
 	{
 		super(date, order);
 	}
-
+	
 	@Override
 	public boolean accept(Task t)
 	{
-		for(Order o : order)
+		for (Order o : order)
 		{
-			if(o == Order.BEFORE && date.isBefore(t.getCreationDate()))
+			if (o == Order.BEFORE && date.isBefore(t.getCreationDate()))
 				continue;
-			else if(o == Order.AFTER && date.isAfter(t.getCreationDate()))
+			else if (o == Order.AFTER && date.isAfter(t.getCreationDate()))
 				continue;
-			else if(o == Order.EQUAL && date.equals(t.getCreationDate()))
+			else if (o == Order.EQUAL && date.equals(t.getCreationDate()))
 				continue;
 			
 			return false;

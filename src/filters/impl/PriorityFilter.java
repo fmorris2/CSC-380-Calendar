@@ -18,5 +18,5 @@ public class PriorityFilter extends Filter
 	{
 		return t.getPriority() == priority;
 	}
-
+	
 }

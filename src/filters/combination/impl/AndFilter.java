@@ -5,8 +5,8 @@ import filters.combination.ComboFilter;
 import task.Task;
 
 /**
- * This is a ComboFilter that combines
- * two separate filters with an "and" relationship.
+ * This is a ComboFilter that combines two separate filters with an "and"
+ * relationship.
  * 
  * @author Freddy
  *
@@ -17,11 +17,11 @@ public class AndFilter extends ComboFilter
 	{
 		super(one, two);
 	}
-
+	
 	@Override
 	public boolean accept(Task t)
 	{
 		return one.accept(t) && two.accept(t);
 	}
-
+	
 }

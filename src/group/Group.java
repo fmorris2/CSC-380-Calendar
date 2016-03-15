@@ -66,7 +66,7 @@ public class Group
 	
 	public void completeGroupTask(User user, Task task)
 	{
-		if(permissions.get(user).getCanCompleteTasks())
+		if (permissions.get(user).getCanCompleteTasks())
 		{
 			this.groupTasks.remove(task);
 			this.groupCompletedTasks.add(task);

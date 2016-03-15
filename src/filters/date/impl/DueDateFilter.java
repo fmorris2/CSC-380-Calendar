@@ -12,17 +12,17 @@ public class DueDateFilter extends DateFilter
 	{
 		super(date, order);
 	}
-
+	
 	@Override
 	public boolean accept(Task t)
 	{
-		for(Order o : order)
+		for (Order o : order)
 		{
-			if(o == Order.BEFORE && date.isBefore(t.getDueDate()))
+			if (o == Order.BEFORE && date.isBefore(t.getDueDate()))
 				continue;
-			else if(o == Order.AFTER && date.isAfter(t.getDueDate()))
+			else if (o == Order.AFTER && date.isAfter(t.getDueDate()))
 				continue;
-			else if(o == Order.EQUAL && date.equals(t.getDueDate()))
+			else if (o == Order.EQUAL && date.equals(t.getDueDate()))
 				continue;
 			
 			return false;
