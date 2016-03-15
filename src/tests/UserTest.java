@@ -1,15 +1,9 @@
 package tests;
 
 import static org.junit.Assert.*;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import org.junit.Test;
-
 import group.Group;
-import task.Priority;
 import task.Task;
 import user.User;
 

@@ -35,6 +35,7 @@ public class User
 	 */
 	public User()
 	{
+		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
 	}
