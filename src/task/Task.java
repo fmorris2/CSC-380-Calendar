@@ -2,7 +2,11 @@ package task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
+
+
 
 /**
  * This is the Task class that is used to store the various tasks the user would
@@ -34,6 +38,7 @@ public class Task
 		this.category = "TEST";
 		this.priority = Priority.HIGH;
 		this.comments = new Stack<Comment>();
+		
 	}
 	
 	/**
@@ -50,6 +55,7 @@ public class Task
 		this.priority = priority;
 		this.creationDate = LocalDateTime.now();
 		this.comments = new Stack<Comment>();
+		
 	}
 	
 	/**

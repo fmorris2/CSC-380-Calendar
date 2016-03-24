@@ -1,5 +1,10 @@
 package user;
 
+/*
+ * 
+ * @author Noah Pierce
+ */
+
 public class Permissions
 {
 	// Variables

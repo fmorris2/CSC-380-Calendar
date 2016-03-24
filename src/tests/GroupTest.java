@@ -10,6 +10,11 @@ import task.Task;
 import user.Permissions;
 import user.User;
 
+/*
+ * 
+ * @author Noah Pierce
+ */
+
 public class GroupTest
 {
 	

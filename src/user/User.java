@@ -34,6 +34,7 @@ public class User
 		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
+		this.email = "npierce@oswego.edu";
 	}
 	
 	/**

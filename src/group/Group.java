@@ -7,6 +7,12 @@ import task.Task;
 import user.Permissions;
 import user.User;
 
+/**
+ * This is the Group class, used to create and manage teams of people.
+ * 
+ * @author Noah Pierce
+ */
+
 public class Group
 {
 	private String groupName;
