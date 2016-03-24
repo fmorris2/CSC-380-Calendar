@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="460.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <TextField layoutX="14.0" layoutY="28.0" prefWidth="200.0" />
+    <Label layoutX="14.0" layoutY="12.0" text="Task Name" />
+    <TextField layoutX="245.0" layoutY="28.0" prefWidth="200.0" />
+    <Label layoutX="245.0" layoutY="12.0" text="Category" />
+    <Label layoutX="16.0" layoutY="50.0" text="Duration" />
+    <TextField layoutX="14.0" layoutY="66.0" prefWidth="200.0" />
+    <Label layoutX="247.0" layoutY="50.0" text="Due Date" />
+    <TextField layoutX="245.0" layoutY="66.0" prefWidth="200.0" />
+    <TextArea layoutX="16.0" layoutY="104.0" prefWidth="200.0" wrapText="true" />
+    <Label layoutX="16.0" layoutY="88.0" text="Task Description" />
+    <Label layoutX="247.0" layoutY="88.0" text="Priority" />
+    <ChoiceBox layoutX="247.0" layoutY="104.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ChoiceBox>
+    <Button layoutX="345.0" layoutY="103.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="73.0" text="Submit" />
+  </children>
+</AnchorPane>

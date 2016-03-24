@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="807.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="interfaces.FXMLDocumentController">
+  <children>
+    <SplitPane disable="false" dividerPositions="0.7416149068322981" focusTraversable="true" layoutX="-2.0" layoutY="24.0" orientation="HORIZONTAL" prefHeight="588.0000999999975" prefWidth="807.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <TableView layoutX="0.0" layoutY="0.0" prefHeight="587.0" prefWidth="593.0">
+              <columns>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="173.0" text="Task Name" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="152.0" text="Category" />
+                <TableColumn prefWidth="75.0" text="Priority" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Due Date" />
+              </columns>
+            </TableView>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="521.0" prefWidth="455.0">
+          <children>
+            <Label layoutX="5.0" layoutY="3.0" text="Task Name" />
+            <TextField editable="false" layoutX="-1.0" layoutY="19.0" prefWidth="204.9998779296875" text="" />
+            <Label layoutX="5.0" layoutY="46.0" text="Task Description" />
+            <TextArea editable="false" layoutX="0.0" layoutY="62.0" prefHeight="119.0" prefWidth="205.0" wrapText="true" />
+            <Label layoutX="5.0" layoutY="184.0" text="Due Date" />
+            <TextField editable="false" layoutX="-1.0" layoutY="200.0" prefWidth="204.9998779296875" />
+            <Label layoutX="5.0" layoutY="224.0" text="Creation Date" />
+            <TextField editable="false" layoutX="-1.0" layoutY="240.0" prefWidth="204.9998779296875" />
+            <Label layoutX="5.0" layoutY="262.0" text="Category" />
+            <TextField editable="false" layoutX="-1.0" layoutY="283.0" prefWidth="204.9998779296875" />
+            <Label layoutX="5.0" layoutY="305.0" text="Priority" />
+            <TextField editable="false" layoutX="-1.0" layoutY="323.0" prefWidth="204.9998779296875" />
+            <Label layoutX="5.0" layoutY="346.0" text="Comments" />
+            <TextArea editable="false" layoutX="-1.0" layoutY="362.0" prefHeight="212.0" prefWidth="205.0" wrapText="true" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <MenuBar layoutX="1.0" layoutY="0.0" prefWidth="805.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleFileNewTaskAction" text="New Task" />
+            <MenuItem mnemonicParsing="false" onAction="#handleFileNewGroupAction" text="New Group" />
+            <MenuItem mnemonicParsing="false" onAction="#handleFileEditAccountAction" text="Edit Account" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleAboutAction" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </children>
+</AnchorPane>
