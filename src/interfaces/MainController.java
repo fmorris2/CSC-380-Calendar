@@ -15,10 +15,18 @@ import javafx.stage.Stage;
  *
  * @author Mike Mekker
  */
-public class FXMLDocumentController implements Initializable
+public class MainController implements Initializable
 {
+	//TODO: Make multiple FXML Controllers for each screen
+	//TODO: Continue adding functionality to buttons
+	
+	
 	
 	@FXML
+	/**
+	 * Action for File->New Task
+	 * @param event
+	 */
 	private void handleFileNewTaskAction(ActionEvent event)
 	{
 		Parent task;
@@ -37,9 +45,25 @@ public class FXMLDocumentController implements Initializable
 	}
 	
 	@FXML
+	/**
+	 * Action for File->New Group
+	 * @param event
+	 */
 	private void handleFileNewGroupAction(ActionEvent event)
 	{
-		
+		Parent group;
+		try
+		{
+			group = FXMLLoader.load(getClass().getResource("CreateEditGroupScreen.fxml"));
+			Stage groupStage = new Stage();
+			Scene groupScene = new Scene(group);
+			groupStage.setScene(groupScene);
+			groupStage.show();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML

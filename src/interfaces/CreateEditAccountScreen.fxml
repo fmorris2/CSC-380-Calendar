@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="440.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="440.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="interfaces.AccountController">
   <children>
     <TextField layoutX="14.0" layoutY="28.0" prefWidth="200.0" />
     <TextField layoutX="231.0" layoutY="28.0" prefWidth="200.0" />
@@ -23,7 +23,7 @@
     <Label layoutX="14.0" layoutY="124.0" text="Security Question" />
     <Label layoutX="231.0" layoutY="124.0" text="Answer" />
     <Label layoutX="96.0" layoutY="167.0" text="System message about incorrect information" textFill="RED" />
-    <Button layoutX="190.0" layoutY="190.0" mnemonicParsing="false" text="Submit" />
+    <Button layoutX="190.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleCreateAccountSubmitListener" text="Submit" />
     <PasswordField layoutX="14.0" layoutY="104.0" prefWidth="200.0" />
     <PasswordField layoutX="231.0" layoutY="104.0" prefWidth="200.0" />
   </children>
