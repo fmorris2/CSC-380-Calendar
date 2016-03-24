@@ -7,14 +7,13 @@ import javax.mail.internet.*;
 import task.Task;
 import user.User;
 
-import javax.activation.*;
 
 /*
  * 
  * @author Noah Pierce
  */
 
-public class basicSender {
+public class BasicSender {
 
 	public static void main(String[] args) {
 		User user = new User();
