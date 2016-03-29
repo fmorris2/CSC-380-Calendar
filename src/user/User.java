@@ -1,6 +1,8 @@
 package user;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import group.Group;
 import task.Task;
 
@@ -22,9 +24,9 @@ public class User
 	private String email;
 	private String securityQuestion;
 	private String securityAnswer;
-	private ArrayList<Group> groups;
-	private ArrayList<Task> tasks;
-	private ArrayList<Task> completedTasks;
+	private	List<Group> groups;
+	private List<Task> tasks;
+	private List<Task> completedTasks;
 	
 	/**
 	 * Default Constructor for testing User class
