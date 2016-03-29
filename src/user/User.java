@@ -215,7 +215,7 @@ public class User
 		this.securityAnswer = securityAnswer;
 	}
 	
-	public ArrayList<Group> getGroups()
+	public List<Group> getGroups()
 	{
 		return groups;
 	}
@@ -225,7 +225,7 @@ public class User
 		this.groups = groups;
 	}
 	
-	public ArrayList<Task> getTasks()
+	public List<Task> getTasks()
 	{
 		return tasks;
 	}
@@ -235,7 +235,7 @@ public class User
 		this.tasks = tasks;
 	}
 	
-	public ArrayList<Task> getCompletedTasks()
+	public List<Task> getCompletedTasks()
 	{
 		return completedTasks;
 	}

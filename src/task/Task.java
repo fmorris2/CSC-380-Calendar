@@ -36,7 +36,6 @@ public class Task
 		this.category = "TEST";
 		this.priority = Priority.HIGH;
 		this.comments = new Stack<Comment>();
-		
 	}
 	
 	/**
