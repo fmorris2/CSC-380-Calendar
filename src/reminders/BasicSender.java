@@ -34,7 +34,7 @@ public class BasicSender {
 		final String password = "gameboy125";
 				
 		//Determine host
-		String host = "localhost";
+		//String host = "localhost";
 				
 		//Get system properties
 		Properties props = System.getProperties();
@@ -69,7 +69,7 @@ public class BasicSender {
 			message.setSubject(task.getTaskName() + " due at " + task.getDueDate());
 					
 			//Set the message
-			Date date = new Date();
+			//Date date = new Date();
 			message.setContent("<h1>Your task: " + task.getTaskName() + " needs to be done by " + task.getDueDate() + "</h1> \n" + task.getTaskDescription(), "text/html" );
 			
 					
