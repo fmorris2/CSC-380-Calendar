@@ -17,10 +17,6 @@ import javafx.stage.Stage;
  */
 public class MainController implements Initializable
 {
-	//TODO: Make multiple FXML Controllers for each screen
-	//TODO: Continue adding functionality to buttons
-	
-	
 	
 	@FXML
 	/**

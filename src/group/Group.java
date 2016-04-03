@@ -2,6 +2,8 @@ package group;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import task.Task;
 import user.Permissions;
@@ -17,11 +19,11 @@ public class Group
 {
 	private String groupName;
 	private String groupDescription;
-	private ArrayList<Task> groupTasks;
-	private ArrayList<Task> groupCompletedTasks;
-	private ArrayList<User> groupMembers;
+	private List<Task> groupTasks;
+	private List<Task> groupCompletedTasks;
+	private List<User> groupMembers;
 	private User groupLeader;
-	private HashMap<User, Permissions> permissions;
+	private Map<User, Permissions> permissions;
 	
 	/**
 	 * The parameterized constructor for the group class.
@@ -155,22 +157,22 @@ public class Group
 		groupDescription = this.groupDescription;
 	}
 	
-	public ArrayList<Task> getGroupTasks()
+	public List<Task> getGroupTasks()
 	{
 		return groupTasks;
 	}
 	
-	public void setGroupTasks(ArrayList<Task> groupTasks)
+	public void setGroupTasks(List<Task> groupTasks)
 	{
 		groupTasks = this.groupTasks;
 	}
 	
-	public ArrayList<User> getGroupMembers()
+	public List<User> getGroupMembers()
 	{
 		return groupMembers;
 	}
 	
-	public void setGroupMembers(ArrayList<User> groupMembers)
+	public void setGroupMembers(List<User> groupMembers)
 	{
 		groupMembers = this.groupMembers;
 	}
@@ -185,12 +187,12 @@ public class Group
 		groupLeader = this.groupLeader;
 	}
 	
-	public HashMap<User, Permissions> getUserPermissions()
+	public Map<User, Permissions> getUserPermissions()
 	{
 		return permissions;
 	}
 	
-	public void setUserPermissions(HashMap<User, Permissions> permissions)
+	public void setUserPermissions(Map<User, Permissions> permissions)
 	{
 		permissions = this.permissions;
 	}

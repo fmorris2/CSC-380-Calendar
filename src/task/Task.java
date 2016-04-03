@@ -43,6 +43,7 @@ public class Task
 		this.comments = new Stack<Comment>();
 		this.reminders = new ArrayList<Reminder>();
 		
+
 	}
 	
 	/**
