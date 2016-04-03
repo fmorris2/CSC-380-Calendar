@@ -2,7 +2,11 @@ package task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Stack;
+
+import reminders.Interval;
+import reminders.Reminder;
 
 
 
@@ -22,6 +26,7 @@ public class Task
 	private String category;
 	private Priority priority;
 	private Stack<Comment> comments;
+	private ArrayList<Reminder> reminders;
 	
 	/**
 	 * Default Constructor for testing Task class
@@ -36,6 +41,7 @@ public class Task
 		this.category = "TEST";
 		this.priority = Priority.HIGH;
 		this.comments = new Stack<Comment>();
+		this.reminders = new ArrayList<Reminder>();
 		
 	}
 	
@@ -53,6 +59,7 @@ public class Task
 		this.priority = priority;
 		this.creationDate = LocalDateTime.now();
 		this.comments = new Stack<Comment>();
+		this.reminders = new ArrayList<Reminder>();
 		
 	}
 	
@@ -72,6 +79,13 @@ public class Task
 		Comment c = new Comment(author, date, comment);
 		comments.push(c);
 		return c;
+	}
+	
+	public Reminder addReminder(Interval interval){
+		LocalDateTime dueDate = getDueDate();
+		Reminder reminder = new Reminder(dueDate, interval);
+		reminders.add(reminder);
+		return reminder;
 	}
 	
 	/* Getters & Setters */
@@ -113,5 +127,10 @@ public class Task
 	public Stack<Comment> getComments()
 	{
 		return comments;
+	}
+	
+	public ArrayList<Reminder> getReminders()
+	{
+		return reminders;
 	}
 }
