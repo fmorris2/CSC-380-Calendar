@@ -220,7 +220,7 @@ public class User
 		return groups;
 	}
 	
-	public void setGroups(ArrayList<Group> groups)
+	public void setGroups(List<Group> groups)
 	{
 		this.groups = groups;
 	}
@@ -230,7 +230,7 @@ public class User
 		return tasks;
 	}
 	
-	public void setTasks(ArrayList<Task> tasks)
+	public void setTasks(List<Task> tasks)
 	{
 		this.tasks = tasks;
 	}
@@ -240,7 +240,7 @@ public class User
 		return completedTasks;
 	}
 	
-	public void setCompletedTasks(ArrayList<Task> completedTasks)
+	public void setCompletedTasks(List<Task> completedTasks)
 	{
 		this.completedTasks = completedTasks;
 	}

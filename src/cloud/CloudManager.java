@@ -2,9 +2,8 @@ package cloud;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.SQLTimeoutException;
 import java.util.Properties;
 
 public class CloudManager
@@ -13,17 +12,17 @@ public class CloudManager
 	private static final String USER = "sql3113873";
 	private static final String PASS = "yxVJdsdt5F";
 	
-	private Connection connection;
-	private Properties connectionProps;
+	private static Connection connection;
+	private static Properties connectionProps;
 	
-	public CloudManager()
+	static
 	{
 		connectionProps = new Properties();
 		connectionProps.put("user", USER);
 		connectionProps.put("password", PASS);
 	}
 	
-	private void connect()
+	private static void connect()
 	{
 		try
 		{
@@ -35,30 +34,22 @@ public class CloudManager
 		}
 	}
 	
-	public Connection getConnection()
+	public static Connection getConnection()
 	{
-		if(connection == null)
-			connect();
-		
-		return connection;
-	}
-	
-	public static void main(String[] args)
-	{
-		CloudManager manager = new CloudManager();
 		try
 		{
-			System.out.println("Connection is alive: " + manager.getConnection().isValid(5));
-			Statement test = manager.getConnection().createStatement();
-			ResultSet result = test.executeQuery("SELECT * FROM users");
-			if(!result.next())
-				System.out.println("Result set is empty");
-			else
-				System.out.println(result.getString("firstName"));
-		} 
-		catch (SQLException e)
+			if(connection == null || !connection.createStatement().execute("SELECT * FROM users LIMIT 1"))
+				connect();
+		}
+		catch(SQLTimeoutException e)
+		{
+			System.out.println("DB connection timed out... refreshing");
+			connect();
+		}
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+		return connection;
 	}
 }
