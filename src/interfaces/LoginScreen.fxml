@@ -19,7 +19,7 @@
       </font>
     </Label>
     <Button layoutX="411.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleLoginAction" prefWidth="80.0" text="Login" />
-    <Label fx:id="SystemMessageLabelLogin" layoutX="209.0" layoutY="218.0" text="Incorrect Username or Password" textFill="RED" visible="true" />
+    <Label fx:id="SystemMessageLabelLogin" layoutX="209.0" layoutY="218.0" text="" textFill="RED" visible="true" />
     <Button layoutX="183.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleCreateAccountAction" prefWidth="224.0" text="Create Account">
       <font>
         <Font size="18.0" />

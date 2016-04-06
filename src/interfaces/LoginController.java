@@ -50,10 +50,28 @@ public class LoginController implements Initializable
 	 */
 	private void handleLoginAction(ActionEvent event)
 	{
-		SystemMessageLabelLogin.setText("Logged in.");
-		usernameFieldLogin.setText("");
-		passwordFieldLogin.setText("");
+		if (correctLogin(usernameFieldLogin.getText(), passwordFieldLogin.getText())){
+			SystemMessageLabelLogin.setText("Login successful");
+			usernameFieldLogin.setText("");
+			passwordFieldLogin.setText("");
+			//Pull user data from database
+			Stage stage = (Stage) SystemMessageLabelLogin.getScene().getWindow();
+			stage.close();
+		} else {
+			SystemMessageLabelLogin.setText("Incorrect Username or Password");
+			passwordFieldLogin.setText("");
+		}
+		
 	}
+	private boolean correctLogin(String username, String password) {
+		// Filler until Fred is done with database
+		if (!username.equalsIgnoreCase("username") || !password.equalsIgnoreCase("password")){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
