@@ -18,8 +18,10 @@ public enum Priority
 		this.color = color;
 	}
 	
+	
 	public Color getColor()
 	{
 		return color;
 	}
+	
 }
