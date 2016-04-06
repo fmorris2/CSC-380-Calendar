@@ -3,7 +3,6 @@ package user;
 import java.util.ArrayList;
 import java.util.List;
 
-import group.Group;
 import task.Task;
 
 /**
@@ -24,7 +23,6 @@ public class User
 	private String email;
 	private String securityQuestion;
 	private String securityAnswer;
-	private	List<Group> groups;
 	private List<Task> tasks;
 	private List<Task> completedTasks;
 	
@@ -33,7 +31,6 @@ public class User
 	 */
 	public User()
 	{
-		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
 		this.email = "npierce@oswego.edu";
@@ -51,37 +48,8 @@ public class User
 		this.email = email;
 		this.securityQuestion = "";
 		this.securityAnswer = "";
-		this.groups = new ArrayList<Group>();
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
-	}
-	
-	/**
-	 * This method adds a Group object to the list of groups that the user is a
-	 * member of.
-	 * 
-	 * @param group
-	 *            - Group that the user is joining
-	 * @return - Returns the group the user joined
-	 */
-	public Group addGroup(Group group)
-	{
-		this.groups.add(group);
-		return group;
-	}
-	
-	/**
-	 * This method removes a Group object from the list of groups that the user
-	 * is a member of.
-	 * 
-	 * @param group
-	 *            - Group that the user is leaving
-	 * @return - Returns the group the user left
-	 */
-	public Group removeGroup(Group group)
-	{
-		this.groups.remove(group);
-		return group;
 	}
 	
 	/**
@@ -142,6 +110,12 @@ public class User
 	{
 		this.completedTasks.remove(task);
 		return task;
+	}
+	
+	public String toString()
+	{
+		return "firstName: " + firstName + ", lastName: " + lastName + ", username: " + username + "\n" +
+					"password: " + password + ", email: " + email;
 	}
 	
 	/* Getters and Setters */
@@ -213,16 +187,6 @@ public class User
 	public void setSecurityAnswer(String securityAnswer)
 	{
 		this.securityAnswer = securityAnswer;
-	}
-	
-	public List<Group> getGroups()
-	{
-		return groups;
-	}
-	
-	public void setGroups(List<Group> groups)
-	{
-		this.groups = groups;
 	}
 	
 	public List<Task> getTasks()
