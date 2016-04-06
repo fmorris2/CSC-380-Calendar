@@ -6,9 +6,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import user.User;
 
 public class GroupController implements Initializable
 {
+	@FXML groupNameFieldGroup;
+	@FXML groupDescriptionFieldGroup;
+	User user;
+	
 	@FXML
 	private void handleGroupSubmitListener(ActionEvent event)
 	{
@@ -17,6 +22,7 @@ public class GroupController implements Initializable
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
+		this.user = new User();
 	}
 	
 }
