@@ -37,6 +37,8 @@ public class User
 		this.tasks = new ArrayList<Task>();
 		this.completedTasks = new ArrayList<Task>();
 		this.email = "npierce@oswego.edu";
+		this.username = "username";
+		this.password = "password";
 	}
 	
 	/**
