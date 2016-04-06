@@ -135,6 +135,11 @@ public class Group
 		permissions.get(user).setCanCreateTasks(create);
 	}
 	
+	public void setPermissions(Map<User, Permissions> map)
+	{
+		permissions = map;
+	}
+	
 	// Other getters and setters
 	
 	public String getGroupName()
@@ -180,6 +185,11 @@ public class Group
 	public User getGroupLeader()
 	{
 		return groupLeader;
+	}
+	
+	public void setGroupCompletedTasks(List<Task> tasks)
+	{
+		groupCompletedTasks = tasks;
 	}
 	
 	public void setGroupLeader(User groupLeader)
