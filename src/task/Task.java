@@ -1,10 +1,12 @@
 package task;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import cloud.DBUserFunctions;
 import reminders.Interval;
 import reminders.Reminder;
 
@@ -14,8 +16,10 @@ import reminders.Reminder;
  * 
  * @author Mike Mekker
  */
-public class Task
+public class Task implements Serializable
 {
+	private static final long serialVersionUID = 1181418367685770531L;
+	
 	private LocalDateTime creationDate;
 	private LocalDateTime dueDate;
 	private Duration duration;

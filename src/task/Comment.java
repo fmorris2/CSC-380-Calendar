@@ -1,9 +1,12 @@
 package task;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Comment
+public class Comment implements Serializable
 {
+	private static final long serialVersionUID = 7800271263460167807L;
+	
 	private String author;
 	private LocalDateTime date;
 	private String comment;

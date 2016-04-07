@@ -1,12 +1,16 @@
 package cloud;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Blob;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import reminders.Interval;
 import task.Task;
 import user.User;
 
@@ -49,12 +53,11 @@ public class DBUserFunctions
 	{
 		try
 		{
-			Statement st = CloudManager.getConnection().createStatement();
+			saveUserStrings(user);
 			
-			st.executeUpdate("UPDATE users SET firstName='"+user.getFirstName()+"',lastName='"+user.getLastName()
-					+ "',password='"+user.getPassword()+"',email='"+user.getEmail()+"',securityQuestion='"+user.getSecurityQuestion()
-					+ "',securityAnswer='"+user.getSecurityAnswer()+"' WHERE username='"+user.getUsername()+"'");
-			
+			//blobs now
+			saveBlob(user, "tasks", user.getTasks());
+			saveBlob(user, "completedTasks", user.getCompletedTasks());
 		}
 		catch(Exception e)
 		{
@@ -62,6 +65,41 @@ public class DBUserFunctions
 		}
 		
 		System.out.println("User saved");
+	}
+	
+	public static void saveUserStrings(User user)
+	{
+		try
+		{
+			Statement st = CloudManager.getConnection().createStatement();
+			
+			st.executeUpdate("UPDATE users SET firstName='"+user.getFirstName()+"',lastName='"+user.getLastName()
+					+ "',password='"+user.getPassword()+"',email='"+user.getEmail()+"',securityQuestion='"+user.getSecurityQuestion()
+					+ "',securityAnswer='"+user.getSecurityAnswer()+"' WHERE username='"+user.getUsername()+"'");
+			
+			st.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveBlob(User user, String columnName, Object toSave)
+	{
+		try
+		{
+			PreparedStatement ps = CloudManager.getConnection().prepareStatement("UPDATE users SET "+columnName+"=? WHERE username='"+user.getUsername()+"'");
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			new ObjectOutputStream(baos).writeObject(toSave);
+			ps.setObject(1, baos.toByteArray());
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -110,8 +148,10 @@ public class DBUserFunctions
 	{
 		User test = new User("fred", "morrison", "testUsername", "testPassword", "Email@email.com");
 		System.out.println("Login: " + login(test));
-		test.setFirstName("Fred");
 		System.out.println("Loaded account: " + test);
+		Task testTask = test.addNewTask(new Task());
+		testTask.addReminder(Interval.FIFTEEN_MINUTES);
+		System.out.println("Task list size: " + test.getTasks().size());
 		save(test);
 	}
 }

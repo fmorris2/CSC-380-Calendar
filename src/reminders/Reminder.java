@@ -1,8 +1,12 @@
 package reminders;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Reminder {
+public class Reminder implements Serializable
+{
+	private static final long serialVersionUID = -3945751016286710063L;
+	
 	public LocalDateTime dueDate;
 	public boolean remind;
 	public boolean reminderSent;

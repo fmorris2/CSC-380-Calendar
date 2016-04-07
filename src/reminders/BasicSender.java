@@ -1,11 +1,26 @@
 package reminders;
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import task.Task;
 import user.User;
+import cloud.BlobHandler;
+import cloud.CloudManager;
 
 
 /*
@@ -15,11 +30,52 @@ import user.User;
 
 public class BasicSender {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
+		Map<Task, List<Reminder>> reminders = getAllReminders();
+		
+		for(Task t : reminders.keySet())
+			System.out.println(reminders.get(t).size());
+		/*
 		User user = new User();
 		Task task = new Task();
 		sendReminder(user, task);
+		*/
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static Map<Task, List<Reminder>> getAllReminders()
+	{
+		Map<Task, List<Reminder>> reminders = new HashMap<>();
+		
+		try
+		{
+			Statement st = CloudManager.getConnection().createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM users");
+			
+			while(rs.next())
+			{
+				Blob tasksBlob = rs.getBlob("tasks");
+				Object unchecked = BlobHandler.deserialize(tasksBlob.getBinaryStream());
+				List<Task> tasks = unchecked == null ? new ArrayList<>() : (List<Task>)unchecked;
+				for(Task t : tasks)
+				{
+					reminders.putIfAbsent(t, new ArrayList<Reminder>());
+					List<Reminder> entry = reminders.get(t);
+					
+					for(Reminder r : t.getReminders())
+						entry.add(r);
+				}
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return reminders;
 	}
 	
 	/*
