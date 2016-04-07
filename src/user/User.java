@@ -117,8 +117,8 @@ public class User
 	
 	public String toString()
 	{
-		return "firstName: " + firstName + ", lastName: " + lastName + ", username: " + username + "\n" +
-					"password: " + password + ", email: " + email;
+		return "firstName: " + firstName + ", lastName: " + lastName + ", username: " + username + "\n" + "password: "
+				+ password + ", email: " + email;
 	}
 	
 	/* Getters and Setters */

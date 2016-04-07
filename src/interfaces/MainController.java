@@ -62,6 +62,10 @@ public class MainController implements Initializable
 	@FXML
 	TextArea CommentsField;
 	
+	ObservableList<Task> tasks;
+	
+	MainController cont = this;
+	
 	@FXML
 	/**
 	 * Action for File->New Task
@@ -70,11 +74,14 @@ public class MainController implements Initializable
 	 */
 	private void handleFileNewTaskAction(ActionEvent event)
 	{
+		Stage taskStage = new Stage();
 		Parent task;
 		try
 		{
-			task = FXMLLoader.load(getClass().getResource("CreateTaskScreen.fxml"));
-			Stage taskStage = new Stage();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateTaskScreen.fxml"));
+			task = (Parent) fxmlLoader.load();
+			CreateTaskController controller = fxmlLoader.<CreateTaskController> getController();
+			controller.setParent(cont);
 			Scene taskScene = new Scene(task);
 			taskStage.setTitle("Create Task");
 			taskStage.setScene(taskScene);
@@ -95,6 +102,7 @@ public class MainController implements Initializable
 			account = FXMLLoader.load(getClass().getResource("CreateEditAccountScreen.fxml"));
 			Stage accountStage = new Stage();
 			Scene accountScene = new Scene(account);
+			accountStage.setTitle("Edit Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
 		}
@@ -113,6 +121,7 @@ public class MainController implements Initializable
 			about = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));
 			Stage aboutStage = new Stage();
 			Scene aboutScene = new Scene(about);
+			aboutStage.setTitle("About");
 			aboutStage.setScene(aboutScene);
 			aboutStage.show();
 		}
@@ -125,9 +134,10 @@ public class MainController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
+		cont = this;
 		InterfaceLauncher.setCurrentUser();
 		User user = InterfaceLauncher.CurrentUser;
-		ObservableList<Task> tasks = FXCollections.observableArrayList(user.getTasks());
+		tasks = FXCollections.observableArrayList(user.getTasks());
 		tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
 		
 		CompletedColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("completed"));
@@ -156,7 +166,7 @@ public class MainController implements Initializable
 					public void handle(ActionEvent event)
 					{
 						Task selectedTask = TaskTable.getSelectionModel().getSelectedItem();
-						if(selectedTask.getCompleted().equals(""))
+						if (selectedTask.getCompleted().equals(""))
 						{
 							Stage taskStage = new Stage();
 							Parent task;
@@ -166,6 +176,7 @@ public class MainController implements Initializable
 								task = (Parent) fxmlLoader.load();
 								EditTaskController controller = fxmlLoader.<EditTaskController> getController();
 								controller.setTask(selectedTask);
+								controller.setParent(cont);
 								Scene taskScene = new Scene(task);
 								taskStage.setTitle("Edit Task");
 								taskStage.setScene(taskScene);
@@ -215,6 +226,14 @@ public class MainController implements Initializable
 				PriorityField.setText(t.getPriority().toString());
 			}
 		};
+	}
+	
+	public void refreshList()
+	{
+		User user = InterfaceLauncher.CurrentUser;
+		tasks = FXCollections.observableArrayList(user.getTasks());
+		tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
+		TaskTable.setItems(tasks);
 	}
 	
 }

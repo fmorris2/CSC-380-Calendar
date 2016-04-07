@@ -34,6 +34,7 @@ public class LoginController implements Initializable
 			account = FXMLLoader.load(getClass().getResource("CreateEditAccountScreen.fxml"));
 			Stage accountStage = new Stage();
 			Scene accountScene = new Scene(account);
+			accountStage.setTitle("Create Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
 		}
