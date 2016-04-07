@@ -39,9 +39,15 @@ public class BasicSender {
 				System.out.println(reminders.get(u).size());
 				for(Task t : u.getTasks())
 				{
-					for(Reminder r : t.getReminders())
+					for(int i = 0; i < t.getReminders().size(); i++)
 					{
+						Reminder r = t.getReminders().get(i);
 						
+						//IF REMINDER NEEDS TO BE SENT
+						if(false)
+						{
+							t.removeReminder(u, i);
+						}
 					}
 				}
 			}
