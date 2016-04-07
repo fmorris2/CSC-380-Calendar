@@ -1,9 +1,7 @@
 package reminders;
 
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +15,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import cloud.CloudManager;
+import cloud.DBUserFunctions;
 import task.Task;
 import user.User;
-import cloud.BlobHandler;
-import cloud.CloudManager;
 
 
 /*
@@ -30,12 +28,31 @@ import cloud.CloudManager;
 
 public class BasicSender {
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws InterruptedException 
 	{
-		Map<Task, List<Reminder>> reminders = getAllReminders();
-		
-		for(Task t : reminders.keySet())
-			System.out.println(reminders.get(t).size());
+		while(true)
+		{
+			Map<User, List<Task>> reminders = getAllReminders();
+			
+			for(User u : reminders.keySet())
+			{
+				System.out.println(reminders.get(u).size());
+				for(Task t : u.getTasks())
+				{
+					for(int i = 0; i < t.getReminders().size(); i++)
+					{
+						Reminder r = t.getReminders().get(i);
+						
+						//IF REMINDER NEEDS TO BE SENT
+						if(false)
+						{
+							t.removeReminder(u, i);
+						}
+					}
+				}
+			}
+			Thread.sleep(1000);
+		}
 		/*
 		User user = new User();
 		Task task = new Task();
@@ -44,10 +61,9 @@ public class BasicSender {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static Map<Task, List<Reminder>> getAllReminders()
+	private static Map<User, List<Task>> getAllReminders()
 	{
-		Map<Task, List<Reminder>> reminders = new HashMap<>();
+		Map<User, List<Task>> reminders = new HashMap<>();
 		
 		try
 		{
@@ -56,17 +72,13 @@ public class BasicSender {
 			
 			while(rs.next())
 			{
-				Blob tasksBlob = rs.getBlob("tasks");
-				Object unchecked = BlobHandler.deserialize(tasksBlob.getBinaryStream());
-				List<Task> tasks = unchecked == null ? new ArrayList<>() : (List<Task>)unchecked;
-				for(Task t : tasks)
-				{
-					reminders.putIfAbsent(t, new ArrayList<Reminder>());
-					List<Reminder> entry = reminders.get(t);
-					
-					for(Reminder r : t.getReminders())
-						entry.add(r);
-				}
+				User user = new User();
+				
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				DBUserFunctions.login(user);
+				
+				reminders.putIfAbsent(user, user.getTasks());
 			}
 			
 		}

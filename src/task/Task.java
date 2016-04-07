@@ -9,6 +9,7 @@ import java.util.Stack;
 import cloud.DBUserFunctions;
 import reminders.Interval;
 import reminders.Reminder;
+import user.User;
 
 /**
  * This is the Task class that is used to store the various tasks the user would
@@ -92,6 +93,12 @@ public class Task implements Serializable
 		Reminder reminder = new Reminder(dueDate, interval);
 		reminders.add(reminder);
 		return reminder;
+	}
+	
+	public void removeReminder(User user, int i)
+	{
+		reminders.remove(i);
+		DBUserFunctions.saveBlob(user, "tasks", user.getTasks());
 	}
 	
 	/* Getters & Setters */
