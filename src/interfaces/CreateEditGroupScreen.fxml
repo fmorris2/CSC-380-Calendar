@@ -9,8 +9,8 @@
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="228.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="interfaces.GroupController">
   <children>
     <Label layoutX="14.0" layoutY="14.0" text="Group Name" />
-    <TextField layoutX="14.0" layoutY="30.0" prefWidth="200.0" />
-    <TextArea layoutX="14.0" layoutY="68.0" prefWidth="200.0" wrapText="true" />
+    <TextField id="groupNameField" fx:id="groupNameFieldGroup" layoutX="14.0" layoutY="30.0" prefWidth="200.0" />
+    <TextArea id="groupDescriptionField" fx:id="groupDescriptionFieldGroup"layoutX="14.0" layoutY="68.0" prefWidth="200.0" wrapText="true" />
     <Label layoutX="14.0" layoutY="52.0" text="Group Description" />
     <Button layoutX="71.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleGroupSubmitListener" prefWidth="81.0" text="Submit" />
   </children>

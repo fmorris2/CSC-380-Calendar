@@ -1,9 +1,11 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
+
 import org.junit.Test;
-import group.Group;
+
 import task.Task;
 import user.User;
 
@@ -17,35 +19,7 @@ public class UserTest
 {
 	// Create User, Group, and Task to test with
 	User user = new User();
-	Group g = new Group();
 	Task t = new Task();
-	
-	/**
-	 * Creates a user object. The User object is then tested by: - Adding a
-	 * group to the User's list of group - Removing a group from the User's list
-	 * of groups - Add a new task - Complete a task - Remove task - Remove
-	 * completed task
-	 */
-	@Test
-	public void testAddGroup()
-	{
-		user.addGroup(g);
-		// Check if new group has been added
-		ArrayList<Group> gArr = new ArrayList<Group>();
-		gArr.add(g);
-		assertEquals(gArr, user.getGroups());
-	}
-	
-	@Test
-	public void testRemoveGroup()
-	{
-		/** Remove group from user (removeGroup) */
-		user.addGroup(g);
-		user.removeGroup(g);
-		// Check if group was removed
-		ArrayList<Group> gArr = new ArrayList<Group>();
-		assertEquals(gArr, user.getGroups());
-	}
 	
 	@Test
 	public void testAddNewTask()
