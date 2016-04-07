@@ -23,7 +23,7 @@
     <Label layoutX="14.0" layoutY="124.0" text="Security Question" />
     <Label layoutX="231.0" layoutY="124.0" text="Answer" />
     <Label fx:id="SystemMessage" layoutX="96.0" layoutY="167.0" text="System message about incorrect information" textFill="RED" />
-    <Button fx:id="submit" layoutX="190.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleCreateAccountSubmitListener" text="Submit" />
+    <Button layoutX="190.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleCreateAccountSubmitListener" text="Submit" />
     <PasswordField fx:id="password" layoutX="14.0" layoutY="104.0" prefWidth="200.0" />
     <PasswordField fx:id="passwordConfirmation" layoutX="231.0" layoutY="104.0" prefWidth="200.0" />
   </children>

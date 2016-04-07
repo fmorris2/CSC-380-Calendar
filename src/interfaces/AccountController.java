@@ -3,6 +3,7 @@ package interfaces;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import cloud.DBUserFunctions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import user.User;
 
 public class AccountController implements Initializable
 {
@@ -26,28 +28,86 @@ public class AccountController implements Initializable
 	@FXML
 	private void handleCreateAccountSubmitListener(ActionEvent event)
 	{
-		Stage stage = (Stage) firstName.getScene().getWindow();
-		if(stage.getTitle().equals("Create Account"))
+		if(validFields())
 		{
 			//Take in values
-			
-			
-			
-			//InterfaceLauncher.CurrentUser = new User();
+			String first = firstName.getText();
+			String last = lastName.getText();
+			String nUsername = username.getText();
+			String nEmail = email.getText();
+			String pass = password.getText();
+			String pass2 = passwordConfirmation.getText();
+			String sQ = secQ.getText();
+			String sA =secA.getText();
+			if(pass.equals(pass2))
+			{
+				Stage stage = (Stage) firstName.getScene().getWindow();
+				if(stage.getTitle().equals("Create Account"))
+				{
+					//if(username and password not taken)
+					{
+						User u = new User(first, last, nUsername, pass, nEmail);
+						u.setSecurityQuestion(sQ);
+						u.setSecurityAnswer(sA);
+						InterfaceLauncher.CurrentUser = u;
+					}
+					
+				}
+				else if(stage.getTitle().equals("Edit Account"))
+				{
+					InterfaceLauncher.CurrentUser.setFirstName(first);
+					InterfaceLauncher.CurrentUser.setLastName(last);
+					InterfaceLauncher.CurrentUser.setEmail(nEmail);
+					InterfaceLauncher.CurrentUser.setPassword(pass);
+					InterfaceLauncher.CurrentUser.setUsername(nUsername);
+					InterfaceLauncher.CurrentUser.setSecurityQuestion(sQ);
+					InterfaceLauncher.CurrentUser.setSecurityAnswer(sA);
+					DBUserFunctions.saveUserStrings(InterfaceLauncher.CurrentUser);
+				}
+				stage.close();
+			}
+			else
+			{
+				SystemMessage.setText("Passwords don't match.");
+			}
 		}
-		else if(stage.getTitle().equals("Edit Account"))
+		else
 		{
-			//Take in values
-			
-			
-			
-			////InterfaceLauncher.CurrentUser = new User();
+			SystemMessage.setText("Fields are filled out incorrectly.");
 		}
 	}
+	
+	private boolean validFields()
+	{
+		if(!firstName.getText().equals("")
+				&&!lastName.getText().equals("")
+				&&!username.getText().equals("")
+				&&!email.getText().equals("")
+				&&!password.getText().equals("")
+				&&!passwordConfirmation.getText().equals("")
+				&&!secQ.getText().equals("")
+				&&!secA.getText().equals(""))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		
+		User u = InterfaceLauncher.CurrentUser;
+		if(u != null)
+		{
+			firstName.setText(u.getFirstName());
+			lastName.setText(u.getLastName());
+			username.setText(u.getUsername());
+			email.setText(u.getEmail());
+			password.setText(u.getPassword());
+			passwordConfirmation.setText(u.getPassword());
+			secQ.setText(u.getSecurityQuestion());
+			secA.setText(u.getSecurityAnswer());
+		}
 	}
 	
 }

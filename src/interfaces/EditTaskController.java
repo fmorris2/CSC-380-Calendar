@@ -39,7 +39,7 @@ public class EditTaskController implements Initializable
 	@FXML
 	TextArea taskDescriptionFieldTask;
 	@FXML
-	ChoiceBox<Priority> priorityFieldTask;
+	ChoiceBox<String> priorityFieldTask;
 	@FXML
 	ChoiceBox<String> timeHoursFieldTask;
 	@FXML
@@ -64,8 +64,7 @@ public class EditTaskController implements Initializable
 			LocalDateTime dueDate = makeLocalDateTime(datePicker.getValue(), timeHoursFieldTask.getValue(),
 					timeMinutesFieldTask.getValue(), timeFieldTask.getValue());
 			String taskDescription = taskDescriptionFieldTask.getText();
-			Object obj = priorityFieldTask.getValue();
-			Priority priority = Priority.valueOf((String)obj);
+			Priority priority = Priority.valueOf(priorityFieldTask.getValue());
 			Task task = new Task(dueDate, duration, taskName, taskDescription, category, priority);
 			if (!currentTask.equals(task))
 			{
@@ -87,13 +86,13 @@ public class EditTaskController implements Initializable
 		if(!taskNameFieldTask.getText().equals("")
 				&& !categoryFieldTask.getText().equals("")
 				&& !durationFieldTask.getText().equals("")
-				&& !durationFieldTask.getText().matches("\\d+")
-				&& !datePicker.getValue().equals("null")
-				&& !timeHoursFieldTask.getValue().equals("null")
-				&& !timeMinutesFieldTask.getValue().equals("null")
-				&& !timeFieldTask.getValue().equals("null")
+				&& durationFieldTask.getText().matches("\\d+")
+				&& !datePicker.getValue().equals(null)
+				&& !timeHoursFieldTask.getValue().equals(null)
+				&& !timeMinutesFieldTask.getValue().equals(null)
+				&& !timeFieldTask.getValue().equals(null)
 				&& !taskDescriptionFieldTask.getText().equals("")
-				&& !priorityFieldTask.getValue().equals("null"))
+				&& !priorityFieldTask.getValue().equals(null))
 		{
 			return true;
 		}

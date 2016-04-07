@@ -37,8 +37,6 @@
             <TextField id="Category" fx:id="CategoryField" editable="false" layoutX="-1.0" layoutY="283.0" prefWidth="204.9998779296875" />
             <Label layoutX="5.0" layoutY="305.0" text="Priority" />
             <TextField id="Priority" fx:id="PriorityField" editable="false" layoutX="-1.0" layoutY="323.0" prefWidth="204.9998779296875" />
-            <Label layoutX="5.0" layoutY="346.0" text="Comments" />
-            <TextArea id="Comments" fx:id="CommentsField" editable="false" layoutX="-1.0" layoutY="362.0" prefHeight="212.0" prefWidth="205.0" wrapText="true" />
           </children>
         </AnchorPane>
       </items>

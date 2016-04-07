@@ -39,6 +39,8 @@ public class LoginController implements Initializable
 			accountStage.setTitle("Create Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
+			Stage stage = (Stage) SystemMessageLabelLogin.getScene().getWindow();
+			stage.close();
 		}
 		catch (IOException e)
 		{
@@ -82,7 +84,6 @@ public class LoginController implements Initializable
 		
 	}
 	private User correctLogin(String username, String password) {
-		// Filler until Fred is done with database
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
