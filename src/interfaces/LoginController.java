@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import cloud.DBUserFunctions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import user.User;
 
 public class LoginController implements Initializable
 {
@@ -51,10 +53,12 @@ public class LoginController implements Initializable
 	 */
 	private void handleLoginAction(ActionEvent event)
 	{
-		if (correctLogin(usernameFieldLogin.getText(), passwordFieldLogin.getText())){
+		User currentUser = correctLogin(usernameFieldLogin.getText(), passwordFieldLogin.getText());
+		if (currentUser != null){
 			SystemMessageLabelLogin.setText("Login successful");
 			usernameFieldLogin.setText("");
 			passwordFieldLogin.setText("");
+			InterfaceLauncher.setCurrentUser(currentUser);
 			//Pull user data from database
 			Stage stage = (Stage) SystemMessageLabelLogin.getScene().getWindow();
 			stage.close();
@@ -64,13 +68,12 @@ public class LoginController implements Initializable
 		}
 		
 	}
-	private boolean correctLogin(String username, String password) {
+	private User correctLogin(String username, String password) {
 		// Filler until Fred is done with database
-		if (!username.equalsIgnoreCase("username") || !password.equalsIgnoreCase("password")){
-			return false;
-		} else {
-			return true;
-		}
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		return DBUserFunctions.login(user) ? user : null;
 	}
 
 	@Override

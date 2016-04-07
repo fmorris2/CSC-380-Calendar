@@ -51,7 +51,7 @@ public class BasicSender {
 					}
 				}
 			}
-			Thread.sleep(1000);
+			Thread.sleep(30000);
 		}
 		/*
 		User user = new User();
