@@ -213,7 +213,6 @@ public class User
 	public void setTasks(List<Task> tasks)
 	{
 		this.tasks = tasks;
-		DBUserFunctions.saveBlob(this, "tasks", completedTasks);
 	}
 	
 	public List<Task> getCompletedTasks()
@@ -224,6 +223,5 @@ public class User
 	public void setCompletedTasks(List<Task> completedTasks)
 	{
 		this.completedTasks = completedTasks;
-		DBUserFunctions.saveBlob(this, "completedTasks", completedTasks);
 	}
 }

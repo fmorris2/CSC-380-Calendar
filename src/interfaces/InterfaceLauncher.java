@@ -24,14 +24,6 @@ public class InterfaceLauncher extends Application
 	public void start(Stage stage) throws Exception
 	{
 		Parent login = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
-		Parent main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-		
-		Scene mainScene = new Scene(main);
-		stage.setTitle("Task Organizer");
-		stage.setScene(mainScene);
-		stage.show();
-		
-		
 		Stage loginStage = new Stage();
 		Scene loginScene = new Scene(login);
 		loginStage.setTitle("Login");

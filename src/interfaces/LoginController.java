@@ -62,6 +62,19 @@ public class LoginController implements Initializable
 			//Pull user data from database
 			Stage stage = (Stage) SystemMessageLabelLogin.getScene().getWindow();
 			stage.close();
+			Parent main;
+			try
+			{
+				main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+				Scene mainScene = new Scene(main);
+				stage.setTitle("Task Organizer");
+				stage.setScene(mainScene);
+				stage.show();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		} else {
 			SystemMessageLabelLogin.setText("Incorrect Username or Password");
 			passwordFieldLogin.setText("");
