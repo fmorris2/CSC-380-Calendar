@@ -113,6 +113,7 @@ public class User
 	public Task completeTask(Task task)
 	{
 		this.tasks.remove(task);
+		task.setCompleted("C");
 		this.completedTasks.add(task);
 		return task;
 	}

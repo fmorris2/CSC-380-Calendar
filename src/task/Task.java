@@ -27,6 +27,7 @@ public class Task
 	private Priority priority;
 	private Stack<Comment> comments;
 	private ArrayList<Reminder> reminders;
+	private String completed;
 	
 	/**
 	 * Default Constructor for testing Task class
@@ -42,7 +43,7 @@ public class Task
 		this.priority = Priority.HIGH;
 		this.comments = new Stack<Comment>();
 		this.reminders = new ArrayList<Reminder>();
-		
+		this.completed = "";
 
 	}
 	
@@ -61,6 +62,7 @@ public class Task
 		this.creationDate = LocalDateTime.now();
 		this.comments = new Stack<Comment>();
 		this.reminders = new ArrayList<Reminder>();
+		this.completed = "";
 		
 	}
 	
@@ -81,7 +83,7 @@ public class Task
 		comments.push(c);
 		return c;
 	}
-	
+
 	public Reminder addReminder(Interval interval){
 		LocalDateTime dueDate = getDueDate();
 		Reminder reminder = new Reminder(dueDate, interval);
@@ -133,5 +135,60 @@ public class Task
 	public ArrayList<Reminder> getReminders()
 	{
 		return reminders;
+	}
+	
+	public void setCreationDate(LocalDateTime creationDate)
+	{
+		this.creationDate = creationDate;
+	}
+
+	public void setDueDate(LocalDateTime dueDate)
+	{
+		this.dueDate = dueDate;
+	}
+
+	public void setDuration(Duration duration)
+	{
+		this.duration = duration;
+	}
+
+	public void setTaskName(String taskName)
+	{
+		this.taskName = taskName;
+	}
+
+	public void setTaskDescription(String taskDescription)
+	{
+		this.taskDescription = taskDescription;
+	}
+
+	public void setCategory(String category)
+	{
+		this.category = category;
+	}
+
+	public void setPriority(Priority priority)
+	{
+		this.priority = priority;
+	}
+
+	public void setComments(Stack<Comment> comments)
+	{
+		this.comments = comments;
+	}
+
+	public void setReminders(ArrayList<Reminder> reminders)
+	{
+		this.reminders = reminders;
+	}
+
+	public void setCompleted(String string)
+	{
+		this.completed = string;
+	}
+	
+	public String getCompleted()
+	{
+		return this.completed;
 	}
 }
