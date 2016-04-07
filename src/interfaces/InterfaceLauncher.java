@@ -49,6 +49,11 @@ public class InterfaceLauncher extends Application
 		launch(args);
 	}
 	
+	public static void setCurrentUser(User u)
+	{
+		CurrentUser = u;
+	}
+	
 	public static void setCurrentUser()
 	{
 		CurrentUser = new User("FirstName", "LastName", "username", "password", "email@email.com");
