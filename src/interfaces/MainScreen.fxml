@@ -48,7 +48,6 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handleFileNewTaskAction" text="New Task" />
-            <MenuItem mnemonicParsing="false" onAction="#handleFileNewGroupAction" text="New Group" />
             <MenuItem mnemonicParsing="false" onAction="#handleFileEditAccountAction" text="Edit Account" />
           </items>
         </Menu>

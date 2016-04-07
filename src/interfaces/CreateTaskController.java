@@ -24,7 +24,7 @@ import task.Priority;
 import task.Task;
 import user.User;
 
-public class TaskController implements Initializable
+public class CreateTaskController implements Initializable
 {
 	@FXML TextField taskNameFieldTask;
 	@FXML TextField categoryFieldTask;

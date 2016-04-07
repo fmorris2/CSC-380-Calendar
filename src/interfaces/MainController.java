@@ -73,34 +73,12 @@ public class MainController implements Initializable
 		Parent task;
 		try
 		{
-			task = FXMLLoader.load(getClass().getResource("CreateEditTaskScreen.fxml"));
+			task = FXMLLoader.load(getClass().getResource("CreateTaskScreen.fxml"));
 			Stage taskStage = new Stage();
 			Scene taskScene = new Scene(task);
+			taskStage.setTitle("Create Task");
 			taskStage.setScene(taskScene);
 			taskStage.show();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML
-	/**
-	 * Action for File->New Group
-	 * 
-	 * @param event
-	 */
-	private void handleFileNewGroupAction(ActionEvent event)
-	{
-		Parent group;
-		try
-		{
-			group = FXMLLoader.load(getClass().getResource("CreateEditGroupScreen.fxml"));
-			Stage groupStage = new Stage();
-			Scene groupScene = new Scene(group);
-			groupStage.setScene(groupScene);
-			groupStage.show();
 		}
 		catch (IOException e)
 		{
@@ -144,12 +122,6 @@ public class MainController implements Initializable
 		}
 	}
 	
-	@FXML
-	private void handleTableClick(ActionEvent event)
-	{
-		
-	}
-	
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
@@ -177,32 +149,53 @@ public class MainController implements Initializable
 				final ContextMenu contextMenu = new ContextMenu();
 				final MenuItem editTaskItem = new MenuItem("Edit Task");
 				final MenuItem removeTaskItem = new MenuItem("Remove Task");
-				//Edit task right click option
+				// Edit task right click option
 				editTaskItem.setOnAction(new EventHandler<ActionEvent>()
 				{
 					@Override
 					public void handle(ActionEvent event)
 					{
-						//open edit task window
+						Task selectedTask = TaskTable.getSelectionModel().getSelectedItem();
+						if(selectedTask.getCompleted().equals(""))
+						{
+							Stage taskStage = new Stage();
+							Parent task;
+							try
+							{
+								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditTaskScreen.fxml"));
+								task = (Parent) fxmlLoader.load();
+								EditTaskController controller = fxmlLoader.<EditTaskController> getController();
+								controller.setTask(selectedTask);
+								Scene taskScene = new Scene(task);
+								taskStage.setTitle("Edit Task");
+								taskStage.setScene(taskScene);
+								taskStage.show();
+							}
+							catch (IOException e)
+							{
+								e.printStackTrace();
+							}
+						}
 					}
 				});
-				//Remove task right click option
+				// Remove task right click option
 				removeTaskItem.setOnAction(new EventHandler<ActionEvent>()
 				{
 					@Override
 					public void handle(ActionEvent event)
 					{
 						TaskTable.getItems().remove(row.getItem());
-						if(row.getItem().getCompleted() == "")
+						if (row.getItem().getCompleted() == "")
 							InterfaceLauncher.CurrentUser.removeTask(row.getItem());
-						else if(row.getItem().getCompleted() == "C")
+						else if (row.getItem().getCompleted() == "C")
 							InterfaceLauncher.CurrentUser.removeCompletedTask(row.getItem());
 						
 					}
 				});
 				contextMenu.getItems().add(editTaskItem);
 				contextMenu.getItems().add(removeTaskItem);
-				row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
+				row.contextMenuProperty()
+						.bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
 				return row;
 			}
 		});
