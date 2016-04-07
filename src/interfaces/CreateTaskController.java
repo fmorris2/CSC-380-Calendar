@@ -60,8 +60,8 @@ public class CreateTaskController implements Initializable
 			LocalDateTime dueDate = makeLocalDateTime(datePicker.getValue(), timeHoursFieldTask.getValue(),
 					timeMinutesFieldTask.getValue(), timeFieldTask.getValue());
 			String taskDescription = taskDescriptionFieldTask.getText();
-			Priority priority = Priority.HIGH;
-			// Priority priority = priorityFieldTask.getValue();
+			Object obj = priorityFieldTask.getValue();
+			Priority priority = Priority.valueOf((String)obj);
 			Task task = new Task(dueDate, duration, taskName, taskDescription, category, priority);
 			user.addNewTask(task);
 			parent.refreshList();
