@@ -49,6 +49,7 @@ public class AccountController implements Initializable
 						User u = new User(first, last, nUsername, pass, nEmail);
 						u.setSecurityQuestion(sQ);
 						u.setSecurityAnswer(sA);
+						DBUserFunctions.register(u);
 						InterfaceLauncher.CurrentUser = u;
 					}
 					

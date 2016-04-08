@@ -49,6 +49,28 @@ public class DBUserFunctions
 		return false;
 	}
 	
+	public static void register(User user)
+	{
+		try
+		{
+			Statement st = CloudManager.getConnection().createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM users WHERE username='"+user.getUsername()+"'");
+			if(!rs.next())
+			{
+				st.executeUpdate("INSERT INTO users (username) VALUES ('"+user.getUsername()+"')");
+				saveUserStrings(user);
+			}
+			else
+			{
+				System.out.println("User already exists!");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public static void save(User user)
 	{
 		try
