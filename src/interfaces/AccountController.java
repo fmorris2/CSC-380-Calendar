@@ -19,22 +19,37 @@ import user.User;
 
 public class AccountController implements Initializable
 {
-	@FXML TextField firstName;
-	@FXML TextField lastName;
-	@FXML TextField username;
-	@FXML TextField email;
-	@FXML PasswordField password;
-	@FXML PasswordField passwordConfirmation;
-	@FXML TextField secQ;
-	@FXML TextField secA;
-	@FXML Label SystemMessage;
+	@FXML
+	TextField firstName;
+	@FXML
+	TextField lastName;
+	@FXML
+	TextField username;
+	@FXML
+	TextField email;
+	@FXML
+	PasswordField password;
+	@FXML
+	PasswordField passwordConfirmation;
+	@FXML
+	TextField secQ;
+	@FXML
+	TextField secA;
+	@FXML
+	Label SystemMessage;
+	
+	@FXML
+	public void onEnter(ActionEvent event)
+	{
+		handleCreateAccountSubmitListener(event);
+	}
 	
 	@FXML
 	private void handleCreateAccountSubmitListener(ActionEvent event)
 	{
-		if(validFields())
+		if (validFields())
 		{
-			//Take in values
+			// Take in values
 			String first = firstName.getText();
 			String last = lastName.getText();
 			String nUsername = username.getText();
@@ -42,11 +57,11 @@ public class AccountController implements Initializable
 			String pass = password.getText();
 			String pass2 = passwordConfirmation.getText();
 			String sQ = secQ.getText();
-			String sA =secA.getText();
-			if(pass.equals(pass2))
+			String sA = secA.getText();
+			if (pass.equals(pass2))
 			{
 				Stage stage = (Stage) firstName.getScene().getWindow();
-				if(stage.getTitle().equals("Create Account"))
+				if (stage.getTitle().equals("Create Account"))
 				{
 					User u = new User(first, last, nUsername, pass, nEmail);
 					u.setSecurityQuestion(sQ);
@@ -67,7 +82,7 @@ public class AccountController implements Initializable
 						e.printStackTrace();
 					}
 				}
-				else if(stage.getTitle().equals("Edit Account"))
+				else if (stage.getTitle().equals("Edit Account"))
 				{
 					InterfaceLauncher.CurrentUser.setFirstName(first);
 					InterfaceLauncher.CurrentUser.setLastName(last);
@@ -93,14 +108,10 @@ public class AccountController implements Initializable
 	
 	private boolean validFields()
 	{
-		if(!firstName.getText().equals("")
-				&&!lastName.getText().equals("")
-				&&!username.getText().equals("")
-				&&!email.getText().equals("")
-				&&!password.getText().equals("")
-				&&!passwordConfirmation.getText().equals("")
-				&&!secQ.getText().equals("")
-				&&!secA.getText().equals(""))
+		if (!firstName.getText().equals("") && !lastName.getText().equals("") && !username.getText().equals("")
+				&& !email.getText().equals("") && !password.getText().equals("")
+				&& !passwordConfirmation.getText().equals("") && !secQ.getText().equals("")
+				&& !secA.getText().equals(""))
 		{
 			return true;
 		}
@@ -111,7 +122,7 @@ public class AccountController implements Initializable
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		User u = InterfaceLauncher.CurrentUser;
-		if(u != null)
+		if (u != null)
 		{
 			firstName.setText(u.getFirstName());
 			lastName.setText(u.getLastName());

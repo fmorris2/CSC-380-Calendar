@@ -52,6 +52,19 @@ public class CreateTaskController implements Initializable
 	MainController parent;
 	
 	@FXML
+	public void onEnter(ActionEvent event)
+	{
+		try
+		{
+			handleTaskSubmitListener(event);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	private void handleTaskSubmitListener(ActionEvent event) throws IOException
 	{
 		if(validFields())

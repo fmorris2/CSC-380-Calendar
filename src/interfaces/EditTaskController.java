@@ -53,6 +53,12 @@ public class EditTaskController implements Initializable
 	MainController parent;
 	
 	@FXML
+	public void onEnter(ActionEvent event) throws IOException
+	{
+		handleTaskSubmitListener(event);
+	}
+	
+	@FXML
 	private void handleTaskSubmitListener(ActionEvent event) throws IOException
 	{
 		if(validFields())

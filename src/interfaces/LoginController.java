@@ -47,6 +47,12 @@ public class LoginController implements Initializable
 			e.printStackTrace();
 		}
 	}
+
+	@FXML
+	public void onEnter(ActionEvent event)
+	{
+		handleLoginAction(event);
+	}
 	
 	@FXML
 	/**
