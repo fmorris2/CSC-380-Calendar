@@ -1,12 +1,16 @@
 package interfaces;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import cloud.DBUserFunctions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -44,15 +48,24 @@ public class AccountController implements Initializable
 				Stage stage = (Stage) firstName.getScene().getWindow();
 				if(stage.getTitle().equals("Create Account"))
 				{
-					//if(username and password not taken)
+					User u = new User(first, last, nUsername, pass, nEmail);
+					u.setSecurityQuestion(sQ);
+					u.setSecurityAnswer(sA);
+					DBUserFunctions.register(u);
+					InterfaceLauncher.CurrentUser = u;
+					Parent main;
+					try
 					{
-						User u = new User(first, last, nUsername, pass, nEmail);
-						u.setSecurityQuestion(sQ);
-						u.setSecurityAnswer(sA);
-						DBUserFunctions.register(u);
-						InterfaceLauncher.CurrentUser = u;
+						main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+						Scene mainScene = new Scene(main);
+						stage.setTitle("Task Organizer");
+						stage.setScene(mainScene);
+						stage.show();
 					}
-					
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
 				}
 				else if(stage.getTitle().equals("Edit Account"))
 				{

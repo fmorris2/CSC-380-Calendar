@@ -41,13 +41,13 @@ public class BasicSender {
 				{
 					for(int i = 0; i < t.getReminders().size(); i++)
 					{
-						Reminder r = t.getReminders().get(i);
+						/*Reminder r = t.getReminders().get(i);
 						
 						//IF REMINDER NEEDS TO BE SENT
 						if(false)
 						{
 							t.removeReminder(u, i);
-						}
+						}*/
 					}
 				}
 			}
@@ -93,6 +93,7 @@ public class BasicSender {
 	/*
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private static void sendReminder(User user, Task task) {
 		//Recipient's email id
 		String to = user.getEmail();
