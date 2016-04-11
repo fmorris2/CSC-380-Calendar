@@ -44,8 +44,9 @@ public class BasicSender {
 						Reminder r = t.getReminders().get(i);
 						
 						//IF REMINDER NEEDS TO BE SENT
-						if(false)
+						if(r.remindTime())
 						{
+							sendReminder(u, t);
 							t.removeReminder(u, i);
 						}
 					}
@@ -53,12 +54,6 @@ public class BasicSender {
 			}
 			Thread.sleep(1000);
 		}
-		/*
-		User user = new User();
-		Task task = new Task();
-		sendReminder(user, task);
-		*/
-		
 	}
 	
 	private static Map<User, List<Task>> getAllReminders()
@@ -98,8 +93,8 @@ public class BasicSender {
 		String to = user.getEmail();
 				
 		//Sender's email id
-		final String from = "noyboy125@gmail.com";
-		final String password = "gameboy125";
+		final String from = "taskorganizer.remindersender@gmail.com";
+		final String password = "sunyoswego";
 				
 		//Determine host
 		//String host = "localhost";
@@ -137,7 +132,8 @@ public class BasicSender {
 			message.setSubject(task.getTaskName() + " due at " + task.getDueDate());
 					
 			//Set the message
-			//Date date = new Date();
+//			LocalDateTime date = task.getDueDate();
+			
 			message.setContent("<h1>Your task: " + task.getTaskName() + " needs to be done by " + task.getDueDate() + "</h1> \n" + task.getTaskDescription(), "text/html" );
 			
 					
