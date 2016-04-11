@@ -3,6 +3,7 @@ package user;
 import java.util.ArrayList;
 import java.util.List;
 
+import cloud.DBUserFunctions;
 import task.Task;
 
 /**
@@ -66,6 +67,7 @@ public class User
 	public Task addNewTask(Task task)
 	{
 		this.tasks.add(task);
+		DBUserFunctions.saveBlob(this, "tasks", tasks);
 		return task;
 	}
 	
@@ -83,6 +85,8 @@ public class User
 		this.tasks.remove(task);
 		task.setCompleted("C");
 		this.completedTasks.add(task);
+		DBUserFunctions.saveBlob(this, "tasks", tasks);
+		DBUserFunctions.saveBlob(this, "completedTasks", tasks);
 		return task;
 	}
 	
@@ -97,6 +101,7 @@ public class User
 	public Task removeTask(Task task)
 	{
 		this.tasks.remove(task);
+		DBUserFunctions.saveBlob(this, "tasks", tasks);
 		return task;
 	}
 	
@@ -112,6 +117,7 @@ public class User
 	public Task removeCompletedTask(Task task)
 	{
 		this.completedTasks.remove(task);
+		DBUserFunctions.saveBlob(this, "completedTasks", tasks);
 		return task;
 	}
 	
@@ -130,6 +136,7 @@ public class User
 	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public String getLastName()
@@ -140,6 +147,7 @@ public class User
 	public void setLastName(String lastName)
 	{
 		this.lastName = lastName;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public String getUsername()
@@ -150,6 +158,7 @@ public class User
 	public void setUsername(String username)
 	{
 		this.username = username;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public String getPassword()
@@ -160,6 +169,7 @@ public class User
 	public void setPassword(String password)
 	{
 		this.password = password;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public String getEmail()
@@ -170,6 +180,7 @@ public class User
 	public void setEmail(String email)
 	{
 		this.email = email;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public String getSecurityQuestion()
@@ -180,6 +191,7 @@ public class User
 	public void setSecurityQuestion(String securityQuestion)
 	{
 		this.securityQuestion = securityQuestion;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public String getSecurityAnswer()
@@ -190,6 +202,7 @@ public class User
 	public void setSecurityAnswer(String securityAnswer)
 	{
 		this.securityAnswer = securityAnswer;
+		DBUserFunctions.saveUserStrings(this);
 	}
 	
 	public List<Task> getTasks()

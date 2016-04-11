@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -38,20 +39,22 @@ public class CreateTaskController implements Initializable
 	@FXML
 	TextArea taskDescriptionFieldTask;
 	@FXML
-	ChoiceBox<Priority> priorityFieldTask;
+	ChoiceBox<String> priorityFieldTask;
 	@FXML
 	ChoiceBox<String> timeHoursFieldTask;
 	@FXML
 	ChoiceBox<String> timeMinutesFieldTask;
 	@FXML
 	ChoiceBox<String> timeFieldTask;
+	@FXML
+	Label SystemMessage;
 	User user;
 	MainController parent;
 	
 	@FXML
 	private void handleTaskSubmitListener(ActionEvent event) throws IOException
 	{
-		try
+		if(validFields())
 		{
 			String taskName = taskNameFieldTask.getText();
 			String category = categoryFieldTask.getText();
@@ -60,22 +63,35 @@ public class CreateTaskController implements Initializable
 			LocalDateTime dueDate = makeLocalDateTime(datePicker.getValue(), timeHoursFieldTask.getValue(),
 					timeMinutesFieldTask.getValue(), timeFieldTask.getValue());
 			String taskDescription = taskDescriptionFieldTask.getText();
-			Object obj = priorityFieldTask.getValue();
-			Priority priority = Priority.valueOf((String)obj);
+			Priority priority = Priority.valueOf(priorityFieldTask.getValue());
 			Task task = new Task(dueDate, duration, taskName, taskDescription, category, priority);
 			user.addNewTask(task);
 			parent.refreshList();
 			Stage stage = (Stage) taskNameFieldTask.getScene().getWindow();
 			stage.close();
 		}
-		catch (NullPointerException e)
+		else
 		{
-			// System message
+			SystemMessage.setText("One or more fields are incorrectly filled out.");
 		}
-		catch (NumberFormatException e)
+	}
+	
+	private boolean validFields()
+	{
+		if(!taskNameFieldTask.getText().equals("")
+				&& !categoryFieldTask.getText().equals("")
+				&& !durationFieldTask.getText().equals("")
+				&& durationFieldTask.getText().matches("\\d+")
+				&& !datePicker.getValue().equals(null)
+				&& !timeHoursFieldTask.getValue().equals(null)
+				&& !timeMinutesFieldTask.getValue().equals(null)
+				&& !timeFieldTask.getValue().equals(null)
+				&& !taskDescriptionFieldTask.getText().equals("")
+				&& !priorityFieldTask.getValue().equals(null))
 		{
-			// System message
+			return true;
 		}
+		return false;
 	}
 	
 	private LocalDateTime makeLocalDateTime(LocalDate date, String hour, String minutes, String time)

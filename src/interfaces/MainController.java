@@ -135,7 +135,6 @@ public class MainController implements Initializable
 	public void initialize(URL url, ResourceBundle rb)
 	{
 		cont = this;
-		InterfaceLauncher.setCurrentUser();
 		User user = InterfaceLauncher.CurrentUser;
 		tasks = FXCollections.observableArrayList(user.getTasks());
 		tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
