@@ -137,21 +137,7 @@ public class EditTaskController implements Initializable
 		datePicker.setValue(LocalDate.of(currentTask.getDueDate().getYear(), currentTask.getDueDate().getMonth(),
 				currentTask.getDueDate().getDayOfMonth()));
 		taskDescriptionFieldTask.setText(currentTask.getTaskDescription());
-		switch (currentTask.getPriority())
-		{
-			case LOW:
-			{
-				priorityFieldTask.getSelectionModel().selectFirst();
-			}
-			case MEDIUM:
-			{
-				priorityFieldTask.getSelectionModel().select(1);
-			}
-			case HIGH:
-			{
-				priorityFieldTask.getSelectionModel().selectLast();
-			}
-		}
+		priorityFieldTask.getSelectionModel().select(t.getPriority().toString());;
 		if ((currentTask.getDueDate().getHour() % 12) < 10)
 			timeHoursFieldTask.setValue("0" + (currentTask.getDueDate().getHour() % 12));
 		else
