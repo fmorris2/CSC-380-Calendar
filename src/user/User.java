@@ -55,6 +55,14 @@ public class User
 		this.completedTasks = new ArrayList<Task>();
 	}
 	
+	public User(String username, String password)
+	{
+		this.username = username;
+		this.password = password;
+		this.tasks = new ArrayList<Task>();
+		this.completedTasks = new ArrayList<Task>();
+	}
+	
 	/**
 	 * This method adds a new task object to the list of tasks. It also checks
 	 * if the category of the new task is in the list of custom categories. If

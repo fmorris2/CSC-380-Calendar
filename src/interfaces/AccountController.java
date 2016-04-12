@@ -68,6 +68,7 @@ public class AccountController implements Initializable
 					u.setSecurityAnswer(sA);
 					DBUserFunctions.register(u);
 					InterfaceLauncher.CurrentUser = u;
+					stage.close();
 					Parent main;
 					try
 					{
@@ -93,7 +94,6 @@ public class AccountController implements Initializable
 					InterfaceLauncher.CurrentUser.setSecurityAnswer(sA);
 					DBUserFunctions.saveUserStrings(InterfaceLauncher.CurrentUser);
 				}
-				stage.close();
 			}
 			else
 			{

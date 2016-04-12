@@ -89,10 +89,9 @@ public class LoginController implements Initializable
 		}
 		
 	}
-	private User correctLogin(String username, String password) {
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
+	private User correctLogin(String username, String password) 
+	{
+		User user = new User(username, password);
 		return DBUserFunctions.login(user) ? user : null;
 	}
 
