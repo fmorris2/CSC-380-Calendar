@@ -46,7 +46,7 @@ public class CloudManager
 			System.out.println("DB connection timed out... refreshing");
 			connect();
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}

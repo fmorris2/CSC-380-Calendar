@@ -1,6 +1,7 @@
 package cloud;
 
 import java.io.EOFException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
@@ -17,7 +18,11 @@ public class BlobHandler
 			System.out.println("No object to read, returning null");
 			//e.printStackTrace();
 		}
-		catch(Exception e)
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}

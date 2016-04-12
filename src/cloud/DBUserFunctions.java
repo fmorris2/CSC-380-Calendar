@@ -1,6 +1,7 @@
 package cloud;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -41,7 +42,7 @@ public class DBUserFunctions
 			
 			return true;
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
@@ -65,7 +66,7 @@ public class DBUserFunctions
 				System.out.println("User already exists!");
 			}
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
@@ -73,18 +74,11 @@ public class DBUserFunctions
 	
 	public static void save(User user)
 	{
-		try
-		{
-			saveUserStrings(user);
-			
-			//blobs now
-			saveBlob(user, "tasks", user.getTasks());
-			saveBlob(user, "completedTasks", user.getCompletedTasks());
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		saveUserStrings(user);
+		
+		//blobs now
+		saveBlob(user, "tasks", user.getTasks());
+		saveBlob(user, "completedTasks", user.getCompletedTasks());
 		
 		System.out.println("User saved");
 	}
@@ -101,7 +95,7 @@ public class DBUserFunctions
 			
 			st.close();
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
@@ -118,7 +112,11 @@ public class DBUserFunctions
 			ps.executeUpdate();
 			ps.close();
 		}
-		catch(Exception e)
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -135,7 +133,7 @@ public class DBUserFunctions
 			user.setCompletedTasks(tasks);
 			System.out.println("Completed tasks loaded");
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
@@ -152,7 +150,7 @@ public class DBUserFunctions
 			user.setTasks(tasks);
 			System.out.println("Tasks loaded");
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
