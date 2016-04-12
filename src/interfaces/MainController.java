@@ -195,9 +195,11 @@ public class MainController implements Initializable
 					public void handle(ActionEvent event)
 					{
 						TaskTable.getItems().remove(row.getItem());
-						if (row.getItem().getCompleted() == "")
+						if (row.getItem().getCompleted().equals(""))
+						{
 							InterfaceLauncher.CurrentUser.removeTask(row.getItem());
-						else if (row.getItem().getCompleted() == "C")
+						}
+						else if (row.getItem().getCompleted().equals("C"))
 							InterfaceLauncher.CurrentUser.removeCompletedTask(row.getItem());
 						
 					}
