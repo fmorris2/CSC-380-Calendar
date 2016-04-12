@@ -47,7 +47,7 @@ public class AccountController implements Initializable
 	@FXML
 	private void handleCreateAccountSubmitListener(ActionEvent event)
 	{
-		if (validFields())
+		try
 		{
 			// Take in values
 			String first = firstName.getText();
@@ -93,6 +93,7 @@ public class AccountController implements Initializable
 					InterfaceLauncher.CurrentUser.setSecurityQuestion(sQ);
 					InterfaceLauncher.CurrentUser.setSecurityAnswer(sA);
 					DBUserFunctions.saveUserStrings(InterfaceLauncher.CurrentUser);
+					stage.close();
 				}
 			}
 			else
@@ -100,22 +101,10 @@ public class AccountController implements Initializable
 				SystemMessage.setText("Passwords don't match.");
 			}
 		}
-		else
+		catch(Exception e)
 		{
 			SystemMessage.setText("Fields are filled out incorrectly.");
 		}
-	}
-	
-	private boolean validFields()
-	{
-		if (!firstName.getText().equals("") && !lastName.getText().equals("") && !username.getText().equals("")
-				&& !email.getText().equals("") && !password.getText().equals("")
-				&& !passwordConfirmation.getText().equals("") && !secQ.getText().equals("")
-				&& !secA.getText().equals(""))
-		{
-			return true;
-		}
-		return false;
 	}
 	
 	@Override
