@@ -1,12 +1,9 @@
 package tests;
 
-import static org.junit.Assert.*;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Stack;
-
 import org.junit.Test;
-import task.Comment;
+
+import reminders.Interval;
+import reminders.Reminder;
 import task.Task;
 
 /**
@@ -22,15 +19,12 @@ public class TaskTest
 	 * comment
 	 */
 	@Test
-	public void testAddComment()
+	public void testAddReminder()
 	{
 		// Create new task to test
 		Task t = new Task();
 		// Add a new comment to that task
-		Comment c = t.addComment("Test Author", LocalDateTime.of(2016, Month.MARCH, 07, 10, 18, 0, 0), "Test comment.");
-		// Check that the new comment is there
-		Stack<Comment> comments = new Stack<Comment>();
-		comments.push(c);
-		assertEquals(comments, t.getComments());
+		Reminder r = t.addReminder(Interval.FIFTEEN_MINUTES);
+		assert(t.getReminders().contains(r));
 	}
 }

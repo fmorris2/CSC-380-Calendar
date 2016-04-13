@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.List;
 
 import cloud.DBUserFunctions;
 import reminders.Interval;
@@ -28,8 +28,7 @@ public class Task implements Serializable
 	private String taskDescription;
 	private String category;
 	private Priority priority;
-	private Stack<Comment> comments;
-	private ArrayList<Reminder> reminders;
+	private List<Reminder> reminders;
 	private String completed;
 	
 	/**
@@ -44,7 +43,6 @@ public class Task implements Serializable
 		this.taskDescription = "This is a test task used for testing";
 		this.category = "TEST";
 		this.priority = Priority.HIGH;
-		this.comments = new Stack<Comment>();
 		this.reminders = new ArrayList<Reminder>();
 		this.completed = "";
 		
@@ -63,28 +61,9 @@ public class Task implements Serializable
 		this.category = category;
 		this.priority = priority;
 		this.creationDate = LocalDateTime.now();
-		this.comments = new Stack<Comment>();
 		this.reminders = new ArrayList<Reminder>();
 		this.completed = "";
 		
-	}
-	
-	/**
-	 * This method adds a comment object to the comment stack
-	 * 
-	 * @param author
-	 *            - Author of the comment
-	 * @param date
-	 *            - The time of which the comment was made
-	 * @param comment
-	 *            - The comment to be stored
-	 * @return - Copy of the comment
-	 */
-	public Comment addComment(String author, LocalDateTime date, String comment)
-	{
-		Comment c = new Comment(author, date, comment);
-		comments.push(c);
-		return c;
 	}
 	
 	public Reminder addReminder(Interval interval)
@@ -137,12 +116,7 @@ public class Task implements Serializable
 		return duration;
 	}
 	
-	public Stack<Comment> getComments()
-	{
-		return comments;
-	}
-	
-	public ArrayList<Reminder> getReminders()
+	public List<Reminder> getReminders()
 	{
 		return reminders;
 	}
@@ -180,11 +154,6 @@ public class Task implements Serializable
 	public void setPriority(Priority priority)
 	{
 		this.priority = priority;
-	}
-	
-	public void setComments(Stack<Comment> comments)
-	{
-		this.comments = comments;
 	}
 	
 	public void setReminders(ArrayList<Reminder> reminders)
