@@ -150,99 +150,121 @@ public class MainController implements Initializable
 		PriorityColumn.setCellValueFactory(new PropertyValueFactory<Task, Priority>("priority"));
 		DateColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("dueDate"));
 		
-		/**********************Category Context Menu**********************/
+		/********************** Category Context Menu **********************/
 		final ContextMenu categoryMenu = new ContextMenu();
-		/*List of items to put into the list*/
+		/* List of items to put into the list */
 		ArrayList<CheckMenuItem> categoryItems = new ArrayList<CheckMenuItem>();
 		ArrayList<String> categories = getCategories();
-		/*Add menu items*/
-		for(String s: categories)
+		/* Add menu items */
+		for (String s : categories)
 		{
 			categoryItems.add(new CheckMenuItem(s));
 		}
-		/*Add handler to all menu items*/
-		for(CheckMenuItem i: categoryItems)
+		/* Add handler to all menu items */
+		for (CheckMenuItem i : categoryItems)
 		{
 			i.setSelected(true);
-			i.setOnAction(new EventHandler<ActionEvent>() {
-			    public void handle(ActionEvent e) {
-			    	/*Handler for all menu items*/
-			    	/*To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()*/
-			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
-			    }
+			i.setOnAction(new EventHandler<ActionEvent>()
+			{
+				public void handle(ActionEvent e)
+				{
+					/* Handler for all menu items */
+					/*
+					 * To get name of clicked item use: ((CheckMenuItem)
+					 * (e.getSource())).getText()
+					 */
+					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
+							+ ((CheckMenuItem) (e.getSource())).isSelected());
+				}
 			});
 		}
-		/*Add items to the menu*/
-		for(CheckMenuItem i: categoryItems)
+		/* Add items to the menu */
+		for (CheckMenuItem i : categoryItems)
 		{
 			categoryMenu.getItems().add(i);
 		}
-		/*Set menu to column*/
+		/* Set menu to column */
 		CategoryColumn.setContextMenu(categoryMenu);
-		/**********************End Category menu**********************/
+		/********************** End Category menu **********************/
 		
-		/**********************Priority Context Menu**********************/
+		/********************** Priority Context Menu **********************/
 		final ContextMenu priorityMenu = new ContextMenu();
-		/*List of items to put into the list*/
+		/* List of items to put into the list */
 		ArrayList<CheckMenuItem> priorityItems = new ArrayList<CheckMenuItem>();
 		Priority[] priorities = Priority.values();
-		/*Add menu items*/
-		for(Priority s: priorities)
+		/* Add menu items */
+		for (Priority s : priorities)
 		{
 			priorityItems.add(new CheckMenuItem(s.name()));
 		}
-		/*Add handler to all menu items*/
-		for(CheckMenuItem i: priorityItems)
+		/* Add handler to all menu items */
+		for (CheckMenuItem i : priorityItems)
 		{
 			i.setSelected(true);
-			i.setOnAction(new EventHandler<ActionEvent>() {
-			    public void handle(ActionEvent e) {
-			    	/*Handler for all menu items*/
-			    	/*To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()*/
-			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
-			    }
+			i.setOnAction(new EventHandler<ActionEvent>()
+			{
+				public void handle(ActionEvent e)
+				{
+					/* Handler for all menu items */
+					/*
+					 * To get name of clicked item use: ((CheckMenuItem)
+					 * (e.getSource())).getText()
+					 */
+					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
+							+ ((CheckMenuItem) (e.getSource())).isSelected());
+				}
 			});
 		}
-		/*Add items to the menu*/
-		for(CheckMenuItem i: priorityItems)
+		/* Add items to the menu */
+		for (CheckMenuItem i : priorityItems)
 		{
 			priorityMenu.getItems().add(i);
 		}
-		/*Set menu to column*/
+		/* Set menu to column */
 		PriorityColumn.setContextMenu(priorityMenu);
-		/**********************End Priority menu**********************/
+		/********************** End Priority menu **********************/
 		
-		/**********************Date Context Menu**********************/
+		/********************** Date Context Menu **********************/
 		final ContextMenu dateMenu = new ContextMenu();
-		/*List of items to put into the list*/
+		/* List of items to put into the list */
 		ArrayList<CheckMenuItem> dateItems = new ArrayList<CheckMenuItem>();
-		/*Add menu items*/
+		/* Add menu items */
 		dateItems.add(new CheckMenuItem("BEFORE"));
 		dateItems.add(new CheckMenuItem("EQUAL"));
 		dateItems.add(new CheckMenuItem("AFTER"));
-		//Add handler to all menu items
-		for(CheckMenuItem i: dateItems)
+		// Add handler to all menu items
+		for (CheckMenuItem i : dateItems)
 		{
 			i.setSelected(true);
-			i.setOnAction(new EventHandler<ActionEvent>() {
-			    public void handle(ActionEvent e) {
-			    	//Handler for all menu items
-			    	//To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()
-			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
-			    }
+			i.setOnAction(new EventHandler<ActionEvent>()
+			{
+				public void handle(ActionEvent e)
+				{
+					// Handler for all menu items
+					// To get name of clicked item use: ((CheckMenuItem)
+					// (e.getSource())).getText()
+					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
+							+ ((CheckMenuItem) (e.getSource())).isSelected());
+				}
 			});
 		}
-		MenuItem m = new CustomMenuItem(new DatePicker(LocalDate.now()));
+		MenuItem m = new CalendarMenuItem();
+		m.setOnAction(new EventHandler<ActionEvent>()
+		{
+			public void handle(ActionEvent e)
+			{
+				System.out.println(((CalendarMenuItem) (e.getSource())).getDate().toString());
+			}
+		});
 		dateMenu.getItems().add(m);
-		/*Add items to the menu*/
-		for(CheckMenuItem i: dateItems)
+		/* Add items to the menu */
+		for (CheckMenuItem i : dateItems)
 		{
 			dateMenu.getItems().add(i);
 		}
-		
-		/*Set menu to column*/
+		/* Set menu to column */
 		DateColumn.setContextMenu(dateMenu);
-		/**********************End Date menu**********************/
+		/********************** End Date menu **********************/
 		
 		TaskTable.setItems(tasks);
 		
@@ -340,23 +362,37 @@ public class MainController implements Initializable
 	{
 		ArrayList<String> arr = new ArrayList<String>();
 		User user = InterfaceLauncher.CurrentUser;
-		for(Task t: user.getTasks())
+		for (Task t : user.getTasks())
 		{
 			String cat = t.getCategory();
-			if(!arr.contains(cat))
+			if (!arr.contains(cat))
 			{
 				arr.add(cat);
 			}
 		}
-		for(Task t: user.getCompletedTasks())
+		for (Task t : user.getCompletedTasks())
 		{
 			String cat = t.getCategory();
-			if(!arr.contains(cat))
+			if (!arr.contains(cat))
 			{
 				arr.add(cat);
 			}
 		}
 		return arr;
+	}
+	
+	public static class CalendarMenuItem extends CustomMenuItem
+	{
+		static DatePicker datePicker = new DatePicker(LocalDate.now());
+		public CalendarMenuItem()
+		{
+			super(datePicker);
+			setHideOnClick(false);
+		}
+		public LocalDate getDate()
+		{
+			return datePicker.getValue();
+		}
 	}
 	
 }
