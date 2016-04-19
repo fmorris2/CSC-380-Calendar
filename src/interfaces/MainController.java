@@ -2,6 +2,7 @@ package interfaces;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -145,6 +147,99 @@ public class MainController implements Initializable
 		PriorityColumn.setCellValueFactory(new PropertyValueFactory<Task, Priority>("priority"));
 		DateColumn.setCellValueFactory(new PropertyValueFactory<Task, String>("dueDate"));
 		
+		/**********************Category Context Menu**********************/
+		final ContextMenu categoryMenu = new ContextMenu();
+		/*List of items to put into the list*/
+		ArrayList<CheckMenuItem> categoryItems = new ArrayList<CheckMenuItem>();
+		ArrayList<String> categories = getCategories();
+		/*Add menu items*/
+		for(String s: categories)
+		{
+			categoryItems.add(new CheckMenuItem(s));
+		}
+		/*Add handler to all menu items*/
+		for(CheckMenuItem i: categoryItems)
+		{
+			i.setSelected(true);
+			i.setOnAction(new EventHandler<ActionEvent>() {
+			    public void handle(ActionEvent e) {
+			    	/*Handler for all menu items*/
+			    	/*To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()*/
+			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
+			    }
+			});
+		}
+		/*Add items to the menu*/
+		for(CheckMenuItem i: categoryItems)
+		{
+			categoryMenu.getItems().add(i);
+		}
+		/*Set menu to column*/
+		CategoryColumn.setContextMenu(categoryMenu);
+		/**********************End Category menu**********************/
+		
+		/**********************Priority Context Menu**********************/
+		final ContextMenu priorityMenu = new ContextMenu();
+		/*List of items to put into the list*/
+		ArrayList<CheckMenuItem> priorityItems = new ArrayList<CheckMenuItem>();
+		Priority[] priorities = Priority.values();
+		/*Add menu items*/
+		for(Priority s: priorities)
+		{
+			priorityItems.add(new CheckMenuItem(s.name()));
+		}
+		/*Add handler to all menu items*/
+		for(CheckMenuItem i: priorityItems)
+		{
+			i.setSelected(true);
+			i.setOnAction(new EventHandler<ActionEvent>() {
+			    public void handle(ActionEvent e) {
+			    	/*Handler for all menu items*/
+			    	/*To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()*/
+			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
+			    }
+			});
+		}
+		/*Add items to the menu*/
+		for(CheckMenuItem i: priorityItems)
+		{
+			priorityMenu.getItems().add(i);
+		}
+		/*Set menu to column*/
+		PriorityColumn.setContextMenu(priorityMenu);
+		/**********************End Priority menu**********************/
+		
+		/**********************Date Context Menu**********************/
+		final ContextMenu dateMenu = new ContextMenu();
+		/*List of items to put into the list*/
+		ArrayList<CheckMenuItem> dateItems = new ArrayList<CheckMenuItem>();
+		ArrayList<String> dates = getDates();
+		/*Add menu items*/
+		for(String s: dates)
+		{
+			dateItems.add(new CheckMenuItem(s));
+		}
+		/*Add handler to all menu items*/
+		for(CheckMenuItem i: dateItems)
+		{
+			i.setSelected(true);
+			i.setOnAction(new EventHandler<ActionEvent>() {
+			    public void handle(ActionEvent e) {
+			    	/*Handler for all menu items*/
+			    	/*To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()*/
+			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
+			    }
+			});
+		}
+		/*Add items to the menu*/
+		for(CheckMenuItem i: dateItems)
+		{
+			dateMenu.getItems().add(i);
+		}
+		/*Set menu to column*/
+		DateColumn.setContextMenu(dateMenu);
+		/**********************End Date menu**********************/
+		
 		TaskTable.setItems(tasks);
 		
 		TaskTable.getSelectionModel().selectedItemProperty().addListener(extracted());
@@ -235,6 +330,52 @@ public class MainController implements Initializable
 		tasks = FXCollections.observableArrayList(user.getTasks());
 		tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
 		TaskTable.setItems(tasks);
+	}
+	
+	private ArrayList<String> getCategories()
+	{
+		ArrayList<String> arr = new ArrayList<String>();
+		User user = InterfaceLauncher.CurrentUser;
+		for(Task t: user.getTasks())
+		{
+			String cat = t.getCategory();
+			if(!arr.contains(cat))
+			{
+				arr.add(cat);
+			}
+		}
+		for(Task t: user.getCompletedTasks())
+		{
+			String cat = t.getCategory();
+			if(!arr.contains(cat))
+			{
+				arr.add(cat);
+			}
+		}
+		return arr;
+	}
+	
+	private ArrayList<String> getDates()
+	{
+		ArrayList<String> arr = new ArrayList<String>();
+		User user = InterfaceLauncher.CurrentUser;
+		for(Task t: user.getTasks())
+		{
+			String date = t.getDueDate().toString();
+			if(!arr.contains(date))
+			{
+				arr.add(date);
+			}
+		}
+		for(Task t: user.getCompletedTasks())
+		{
+			String date = t.getDueDate().toString();
+			if(!arr.contains(date))
+			{
+				arr.add(date);
+			}
+		}
+		return arr;
 	}
 	
 }
