@@ -2,6 +2,7 @@ package interfaces;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -213,29 +216,30 @@ public class MainController implements Initializable
 		final ContextMenu dateMenu = new ContextMenu();
 		/*List of items to put into the list*/
 		ArrayList<CheckMenuItem> dateItems = new ArrayList<CheckMenuItem>();
-		ArrayList<String> dates = getDates();
 		/*Add menu items*/
-		for(String s: dates)
-		{
-			dateItems.add(new CheckMenuItem(s));
-		}
-		/*Add handler to all menu items*/
+		dateItems.add(new CheckMenuItem("BEFORE"));
+		dateItems.add(new CheckMenuItem("EQUAL"));
+		dateItems.add(new CheckMenuItem("AFTER"));
+		//Add handler to all menu items
 		for(CheckMenuItem i: dateItems)
 		{
 			i.setSelected(true);
 			i.setOnAction(new EventHandler<ActionEvent>() {
 			    public void handle(ActionEvent e) {
-			    	/*Handler for all menu items*/
-			    	/*To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()*/
+			    	//Handler for all menu items
+			    	//To get name of clicked item use: ((CheckMenuItem) (e.getSource())).getText()
 			        System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: " + ((CheckMenuItem) (e.getSource())).isSelected());
 			    }
 			});
 		}
+		MenuItem m = new CustomMenuItem(new DatePicker(LocalDate.now()));
+		dateMenu.getItems().add(m);
 		/*Add items to the menu*/
 		for(CheckMenuItem i: dateItems)
 		{
 			dateMenu.getItems().add(i);
 		}
+		
 		/*Set menu to column*/
 		DateColumn.setContextMenu(dateMenu);
 		/**********************End Date menu**********************/
@@ -350,29 +354,6 @@ public class MainController implements Initializable
 			if(!arr.contains(cat))
 			{
 				arr.add(cat);
-			}
-		}
-		return arr;
-	}
-	
-	private ArrayList<String> getDates()
-	{
-		ArrayList<String> arr = new ArrayList<String>();
-		User user = InterfaceLauncher.CurrentUser;
-		for(Task t: user.getTasks())
-		{
-			String date = t.getDueDate().toString();
-			if(!arr.contains(date))
-			{
-				arr.add(date);
-			}
-		}
-		for(Task t: user.getCompletedTasks())
-		{
-			String date = t.getDueDate().toString();
-			if(!arr.contains(date))
-			{
-				arr.add(date);
 			}
 		}
 		return arr;
