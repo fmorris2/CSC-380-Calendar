@@ -110,9 +110,18 @@ public class CreateTaskController implements Initializable
 	private LocalDateTime makeLocalDateTime(LocalDate date, String hour, String minutes, String time)
 	{
 		String stringDate;
-		if (time.equalsIgnoreCase("AM"))
+		if (time.equalsIgnoreCase("AM") && Integer.parseInt(hour) != 12)
 		{
 			stringDate = date + "T" + hour + ":" + minutes + ":00.000";
+		}
+		else if(Integer.parseInt(hour) == 12)
+		{
+			String hours;
+			if (time.equalsIgnoreCase("AM"))
+				hours = "00";
+			else
+				hours = "12";
+			stringDate = date + "T" + hours + ":" + minutes + ":00.000";
 		}
 		else
 		{
