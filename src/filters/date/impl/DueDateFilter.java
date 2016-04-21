@@ -16,6 +16,9 @@ public class DueDateFilter extends DateFilter
 	@Override
 	public boolean accept(Task t)
 	{
+		if(order.length == 0)
+			return false;
+		
 		for (Order o : order)
 		{
 			if (o == Order.BEFORE && date.isBefore(t.getDueDate()))

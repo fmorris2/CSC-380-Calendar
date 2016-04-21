@@ -1,10 +1,18 @@
 package filters;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import filters.combination.impl.AndFilter;
 import filters.combination.impl.OrFilter;
+import filters.date.impl.DueDateFilter;
+import filters.impl.CategoryFilter;
+import filters.impl.PriorityFilter;
+import interfaces.MainController.CalendarMenuItem;
+import javafx.scene.control.CheckMenuItem;
+import task.Priority;
 import task.Task;
 
 /**
@@ -31,6 +39,53 @@ public abstract class Filter
 	 * @return If the task meets the filter criteria
 	 */
 	public abstract boolean accept(Task t);
+	
+	public static Filter create(List<CheckMenuItem> categories, List<CheckMenuItem> priorities, 
+			List<CheckMenuItem> orders, CalendarMenuItem date)
+	{
+		Filter categoryFilter = null;
+		Filter priorityFilter = null;
+		Filter dateFilter = null;
+		
+		//start with categories
+		for(CheckMenuItem category : categories)
+		{
+			if(category.isSelected())
+			{
+				System.out.println("Adding category " + category.getText() + " to filter");
+				CategoryFilter cF = new CategoryFilter(category.getText());
+				categoryFilter = categoryFilter == null ? cF : categoryFilter.or(cF);
+			}
+		}
+		
+		//next, priority
+		for(CheckMenuItem priority : priorities)
+		{
+			if(priority.isSelected())
+			{
+				System.out.println("Adding priority " + Priority.valueOf(priority.getText()) + " to filter");
+				PriorityFilter pF = new PriorityFilter(Priority.valueOf(priority.getText()));
+				priorityFilter = priorityFilter == null ? pF : priorityFilter.or(pF);
+			}
+		}
+		
+		//dates last
+		Order[] orderArr = new Order[orders.size()];
+		for(int i = 0; i < orderArr.length; i++)
+		{
+			Order o = Order.valueOf(orders.get(i).getText());
+			System.out.println("Adding order " + o + " to filter");
+			orderArr[i] = o;
+		}
+		
+		LocalDate d = date.getDate();
+		LocalDateTime ldt = LocalDateTime.of(d.getYear(), d.getMonth(), d.getDayOfMonth(), 0, 0);
+		
+		System.out.println("Adding date " + ldt + " to filter");
+		dateFilter = new DueDateFilter(ldt, orderArr);
+		
+		return categoryFilter.and(priorityFilter).and(dateFilter);
+	}
 	
 	/**
 	 * This method filters a list of tasks and returns a new, filtered list.
