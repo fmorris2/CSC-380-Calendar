@@ -316,10 +316,9 @@ public class MainController implements Initializable
 					public void handle(ActionEvent event)
 					{
 						TaskTable.getItems().remove(row.getItem());
+						refreshList();
 						if (row.getItem().getCompleted().equals(""))
-						{
 							InterfaceLauncher.CurrentUser.removeTask(row.getItem());
-						}
 						else if (row.getItem().getCompleted().equals("C"))
 							InterfaceLauncher.CurrentUser.removeCompletedTask(row.getItem());
 						
@@ -356,6 +355,42 @@ public class MainController implements Initializable
 		tasks = FXCollections.observableArrayList(user.getTasks());
 		tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
 		TaskTable.setItems(tasks);
+		
+		/*Refresh Categories*/
+		final ContextMenu categoryMenu = new ContextMenu();
+		/* List of items to put into the list */
+		ArrayList<CheckMenuItem> categoryItems = new ArrayList<CheckMenuItem>();
+		ArrayList<String> categories = getCategories();
+		/* Add menu items */
+		for (String s : categories)
+		{
+			categoryItems.add(new CheckMenuItem(s));
+		}
+		/* Add handler to all menu items */
+		for (CheckMenuItem i : categoryItems)
+		{
+			i.setSelected(true);
+			i.setOnAction(new EventHandler<ActionEvent>()
+			{
+				public void handle(ActionEvent e)
+				{
+					/* Handler for all menu items */
+					/*
+					 * To get name of clicked item use: ((CheckMenuItem)
+					 * (e.getSource())).getText()
+					 */
+					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
+							+ ((CheckMenuItem) (e.getSource())).isSelected());
+				}
+			});
+		}
+		/* Add items to the menu */
+		for (CheckMenuItem i : categoryItems)
+		{
+			categoryMenu.getItems().add(i);
+		}
+		/* Set menu to column */
+		CategoryColumn.setContextMenu(categoryMenu);
 	}
 	
 	private ArrayList<String> getCategories()
