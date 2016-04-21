@@ -35,7 +35,7 @@ public class RecoveryController implements Initializable
 	@FXML
 	private void submitHandle(ActionEvent event)
 	{
-		if(current != null)
+		if (current != null)
 		{
 			if (current.getSecurityAnswer().equals(answerField.getText()))
 			{
@@ -55,7 +55,7 @@ public class RecoveryController implements Initializable
 	private void questionHandle(ActionEvent event)
 	{
 		String username = usernameField.getText();
-		if(!username.equals(""))
+		if (!username.equals(""))
 		{
 			current = DBUserFunctions.getUser(username);
 			String question = current.getSecurityQuestion();

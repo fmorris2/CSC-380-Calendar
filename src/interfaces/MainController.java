@@ -347,6 +347,14 @@ public class MainController implements Initializable
 						if (row.getItem().getCompleted().equals(""))
 							InterfaceLauncher.CurrentUser.completeTask(row.getItem());
 						refreshList();
+						for(Task t: InterfaceLauncher.CurrentUser.getTasks())
+						{
+							System.out.println("Task: " + t.getTaskName());
+						}
+						for(Task t: InterfaceLauncher.CurrentUser.getCompletedTasks())
+						{
+							System.out.println("Completed Task: " + t.getTaskName());
+						}
 					}
 				});
 				contextMenu.getItems().add(editTaskItem);
