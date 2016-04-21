@@ -50,6 +50,37 @@ public class DBUserFunctions
 		return false;
 	}
 	
+	public static User getUser(String username)
+	{
+		User user = new User(username, "");
+		try
+		{
+			ResultSet resultSet;
+			if((resultSet = verify(user)) != null)
+			{
+				//basic strings first
+				user.setFirstName(resultSet.getString("firstName"));
+				user.setLastName(resultSet.getString("lastName"));
+				user.setPassword(resultSet.getString("password"));
+				user.setEmail(resultSet.getString("email"));
+				user.setSecurityQuestion(resultSet.getString("securityQuestion"));
+				user.setSecurityAnswer(resultSet.getString("securityAnswer"));
+				
+				//blobs next
+				loadTasks(resultSet, user);
+				loadCompletedTasks(resultSet, user);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		return user;
+	}
+	
 	public static void register(User user)
 	{
 		try

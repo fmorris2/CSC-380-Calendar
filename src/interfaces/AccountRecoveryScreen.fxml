@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="225.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="interfaces.RecoveryController">
+  <children>
+    <TextField fx:id="usernameField" layoutX="14.0" layoutY="30.0" prefWidth="200.0" />
+    <Label layoutX="14.0" layoutY="14.0" text="Username:" />
+    <TextField fx:id="questionField" editable="false" layoutX="14.0" layoutY="68.0" prefWidth="200.0" />
+    <Label layoutX="14.0" layoutY="52.0" text="Security Question" />
+    <TextField fx:id="answerField" layoutX="14.0" layoutY="106.0" prefWidth="200.0" />
+    <Label layoutX="14.0" layoutY="90.0" text="Security Answer" />
+    <Button layoutX="116.0" layoutY="158.0" mnemonicParsing="false" onAction="#submitHandle" text="Send Recovery" />
+    <Label fx:id="SystemMessage" layoutX="100.0" layoutY="128.0" text="" textFill="RED" />
+    <Button layoutX="14.0" layoutY="158.0" mnemonicParsing="false" onAction="#questionHandle" prefWidth="94.0" text="Get Question" />
+    <Label fx:id="SystemMessage" layoutX="14.0" layoutY="134.0" text="" textFill="RED" />
+  </children>
+</AnchorPane>

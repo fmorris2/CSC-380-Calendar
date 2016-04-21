@@ -20,35 +20,33 @@ import cloud.DBUserFunctions;
 import task.Task;
 import user.User;
 
-
-/*
+/**
  * 
  * @author Noah Pierce
  */
 
-public class BasicSender {
-
-	public static void main(String[] args) throws InterruptedException 
+public class BasicSender
+{
+	
+	public static void main(String[] args) throws InterruptedException
 	{
-		while(true)
+		while (true)
 		{
 			Map<User, List<Task>> reminders = getAllReminders();
 			
-			for(User u : reminders.keySet())
+			for (User u : reminders.keySet())
 			{
 				System.out.println(reminders.get(u).size());
-				for(Task t : u.getTasks())
+				for (Task t : u.getTasks())
 				{
-					for(int i = 0; i < t.getReminders().size(); i++)
+					for (int i = 0; i < t.getReminders().size(); i++)
 					{
-						/*Reminder r = t.getReminders().get(i);
-						
-						//IF REMINDER NEEDS TO BE SENT
-						if(r.remindTime())
-						{
-							sendReminder(u, t);
-							t.removeReminder(u, i);
-						}*/
+						/*
+						 * Reminder r = t.getReminders().get(i);
+						 * 
+						 * //IF REMINDER NEEDS TO BE SENT if(r.remindTime()) {
+						 * sendReminder(u, t); t.removeReminder(u, i); }
+						 */
 					}
 				}
 			}
@@ -65,7 +63,7 @@ public class BasicSender {
 			Statement st = CloudManager.getConnection().createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM users");
 			
-			while(rs.next())
+			while (rs.next())
 			{
 				User user = new User();
 				
@@ -77,7 +75,7 @@ public class BasicSender {
 			}
 			
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -89,62 +87,64 @@ public class BasicSender {
 	 * 
 	 */
 	@SuppressWarnings("unused")
-	private static void sendReminder(User user, Task task) {
-		//Recipient's email id
+	private static void sendReminder(User user, Task task)
+	{
+		// Recipient's email id
 		String to = user.getEmail();
-				
-		//Sender's email id
+		
+		// Sender's email id
 		final String from = "taskorganizer.remindersender@gmail.com";
 		final String password = "sunyoswego";
-				
-		//Determine host
-		//String host = "localhost";
-				
-		//Get system properties
+		
+		// Determine host
+		// String host = "localhost";
+		
+		// Get system properties
 		Properties props = System.getProperties();
-				
-		//Setup mail server
+		
+		// Setup mail server
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
-
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
+		
+		Session session = Session.getInstance(props, new javax.mail.Authenticator()
+		{
+			protected PasswordAuthentication getPasswordAuthentication()
+			{
 				return new PasswordAuthentication(from, password);
 			}
 		});
-				
-				
-				
-		try{
-			//Create a message
+		
+		try
+		{
+			// Create a message
 			MimeMessage message = new MimeMessage(session);
-					
-			//Set sender
+			
+			// Set sender
 			message.setFrom(new InternetAddress(from));
-					
-			//Set receiver
+			
+			// Set receiver
 			message.setRecipients(Message.RecipientType.TO, to);
 			
-					
-			//Set subject
+			// Set subject
 			message.setSubject(task.getTaskName() + " due at " + task.getDueDate());
-					
-			//Set the message
-//			LocalDateTime date = task.getDueDate();
 			
-			message.setContent("<h1>Your task: " + task.getTaskName() + " needs to be done by " + task.getDueDate() + "</h1> \n" + task.getTaskDescription(), "text/html" );
+			// Set the message
+			// LocalDateTime date = task.getDueDate();
 			
-					
-			//Send message
+			message.setContent("<h1>Your task: " + task.getTaskName() + " needs to be done by " + task.getDueDate()
+					+ "</h1> \n" + task.getTaskDescription(), "text/html");
+			
+			// Send message
 			Transport.send(message);
 			System.out.println("Messsage was successfully sent...");
-				
-		} catch (MessagingException mex) {
-					mex.printStackTrace();
+			
+		}
+		catch (MessagingException mex)
+		{
+			mex.printStackTrace();
 		}
 	}
-
+	
 }
