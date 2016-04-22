@@ -293,6 +293,7 @@ public class MainController implements Initializable
 				final MenuItem completeTaskItem = new MenuItem("Complete Task");
 				final MenuItem editTaskItem = new MenuItem("Edit Task");
 				final MenuItem removeTaskItem = new MenuItem("Remove Task");
+				final MenuItem addReminderItem = new MenuItem("Add Reminder");
 				// Edit task right click option
 				editTaskItem.setOnAction(new EventHandler<ActionEvent>()
 				{
@@ -357,6 +358,32 @@ public class MainController implements Initializable
 						}
 					}
 				});
+				addReminderItem.setOnAction(new EventHandler<ActionEvent>()
+				{
+					@Override
+					public void handle(ActionEvent event)
+					{
+						Stage reminderStage = new Stage();
+						Parent reminder;
+						try
+						{
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewReminderWindow.fxml"));
+							reminder = (Parent) fxmlLoader.load();
+							AddReminderController controller = fxmlLoader.<AddReminderController> getController();
+							controller.setTask(row.getItem());
+							controller.setParent(cont);
+							Scene reminderScene = new Scene(reminder);
+							reminderStage.setTitle("Add New Reminder");
+							reminderStage.setScene(reminderScene);
+							reminderStage.show();
+						}
+						catch (IOException e)
+						{
+							e.printStackTrace();
+						}
+					}
+				});
+				contextMenu.getItems().add(addReminderItem);
 				contextMenu.getItems().add(editTaskItem);
 				contextMenu.getItems().add(completeTaskItem);
 				contextMenu.getItems().add(removeTaskItem);

@@ -2,8 +2,6 @@ package interfaces;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -13,8 +11,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import reminders.Interval;
-import reminders.Reminder;
-import task.Priority;
 import task.Task;
 import user.User;
 
@@ -23,7 +19,7 @@ public class AddReminderController {
 	@FXML
 	DatePicker datePickerReminders;
 	@FXML
-	ChoiceBox<Interval> intervalPickerReminder;
+	ChoiceBox<String> intervalPickerReminder;
 	@FXML
 	Label SystemMessage;
 	User user;
@@ -49,7 +45,7 @@ public class AddReminderController {
 	{
 		if(validFields())
 		{
-			currentTask.addReminder(intervalPickerReminder.getValue());
+			currentTask.addReminder(Interval.valueOf(intervalPickerReminder.getValue()));
 			parent.refreshList();
 			Stage stage = (Stage) intervalPickerReminder.getScene().getWindow();
 			stage.close();

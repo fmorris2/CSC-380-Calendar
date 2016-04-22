@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="0.0" prefWidth="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="0.0" prefWidth="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="interfaces.AddReminderController">
    <children>
       <AnchorPane prefHeight="154.0" prefWidth="298.0">
          <children>
@@ -14,17 +14,17 @@
             <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="118.0" text="Add New Reminder" />
             <Label layoutX="16.0" layoutY="47.0" text="Please select when you would like to be reminded:" />
             <ChoiceBox fx:id="intervalPickerReminder" layoutX="75.0" layoutY="77.0" prefWidth="150.0" />
-            <items>
-        	<FXCollections fx:factory="observableArrayList">
-          	<String fx:value="ONE_HOUR" />
-          	<String fx:value="TWO_HOURS" />
-          	<String fx:value="ONE_WEEK" />
-          	<String fx:value="HALF_HOUR" />
-          	<String fx:value="FIFTEEN_MINUTES" />
-          	<String fx:value="TEN_MINUTES" />
-          	<String fx:value="FIVE_MINUTES" />
-        	</FXCollections>
-      		</items>
+	            <items>
+		        	<FXCollections fx:factory="observableArrayList">
+			          	<String fx:value="ONE_HOUR" />
+			          	<String fx:value="TWO_HOURS" />
+			          	<String fx:value="ONE_WEEK" />
+			          	<String fx:value="HALF_HOUR" />
+			          	<String fx:value="FIFTEEN_MINUTES" />
+			          	<String fx:value="TEN_MINUTES" />
+			          	<String fx:value="FIVE_MINUTES" />
+		        	</FXCollections>
+	      		</items>
       		</ChoiceBox>
          </children>
       </AnchorPane>
