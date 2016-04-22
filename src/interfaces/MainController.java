@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import filters.Filter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -70,6 +72,9 @@ public class MainController implements Initializable
 	ObservableList<Task> tasks;
 	
 	MainController cont = this;
+	
+	List<CheckMenuItem> categoryItems, dateItems, priorityItems;
+	MenuItem datePickerMenuItem;
 	
 	@FXML
 	/**
@@ -153,7 +158,7 @@ public class MainController implements Initializable
 		/********************** Category Context Menu **********************/
 		final ContextMenu categoryMenu = new ContextMenu();
 		/* List of items to put into the list */
-		ArrayList<CheckMenuItem> categoryItems = new ArrayList<CheckMenuItem>();
+		categoryItems = new ArrayList<>();
 		ArrayList<String> categories = getCategories();
 		/* Add menu items */
 		for (String s : categories)
@@ -173,6 +178,8 @@ public class MainController implements Initializable
 					 * To get name of clicked item use: ((CheckMenuItem)
 					 * (e.getSource())).getText()
 					 */
+					// CATEGORY FILTER
+					filter();
 					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
 							+ ((CheckMenuItem) (e.getSource())).isSelected());
 				}
@@ -190,7 +197,7 @@ public class MainController implements Initializable
 		/********************** Priority Context Menu **********************/
 		final ContextMenu priorityMenu = new ContextMenu();
 		/* List of items to put into the list */
-		ArrayList<CheckMenuItem> priorityItems = new ArrayList<CheckMenuItem>();
+		priorityItems = new ArrayList<>();
 		Priority[] priorities = Priority.values();
 		/* Add menu items */
 		for (Priority s : priorities)
@@ -210,6 +217,8 @@ public class MainController implements Initializable
 					 * To get name of clicked item use: ((CheckMenuItem)
 					 * (e.getSource())).getText()
 					 */
+					// PRIORITY FILTER
+					filter();
 					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
 							+ ((CheckMenuItem) (e.getSource())).isSelected());
 				}
@@ -227,7 +236,7 @@ public class MainController implements Initializable
 		/********************** Date Context Menu **********************/
 		final ContextMenu dateMenu = new ContextMenu();
 		/* List of items to put into the list */
-		ArrayList<CheckMenuItem> dateItems = new ArrayList<CheckMenuItem>();
+		dateItems = new ArrayList<>();
 		/* Add menu items */
 		dateItems.add(new CheckMenuItem("BEFORE"));
 		dateItems.add(new CheckMenuItem("EQUAL"));
@@ -243,20 +252,24 @@ public class MainController implements Initializable
 					// Handler for all menu items
 					// To get name of clicked item use: ((CheckMenuItem)
 					// (e.getSource())).getText()
+					// ORDER FILTER
+					filter();
 					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
 							+ ((CheckMenuItem) (e.getSource())).isSelected());
 				}
 			});
 		}
-		MenuItem m = new CalendarMenuItem();
-		m.setOnAction(new EventHandler<ActionEvent>()
+		datePickerMenuItem = new CalendarMenuItem();
+		datePickerMenuItem.setOnAction(new EventHandler<ActionEvent>()
 		{
 			public void handle(ActionEvent e)
 			{
+				// DATE
+				filter();
 				System.out.println(((CalendarMenuItem) (e.getSource())).getDate().toString());
 			}
 		});
-		dateMenu.getItems().add(m);
+		dateMenu.getItems().add(datePickerMenuItem);
 		/* Add items to the menu */
 		for (CheckMenuItem i : dateItems)
 		{
@@ -277,6 +290,7 @@ public class MainController implements Initializable
 			{
 				final TableRow<Task> row = new TableRow<>();
 				final ContextMenu contextMenu = new ContextMenu();
+				final MenuItem completeTaskItem = new MenuItem("Complete Task");
 				final MenuItem editTaskItem = new MenuItem("Edit Task");
 				final MenuItem removeTaskItem = new MenuItem("Remove Task");
 				// Edit task right click option
@@ -316,22 +330,50 @@ public class MainController implements Initializable
 					public void handle(ActionEvent event)
 					{
 						TaskTable.getItems().remove(row.getItem());
+						refreshList();
 						if (row.getItem().getCompleted().equals(""))
-						{
 							InterfaceLauncher.CurrentUser.removeTask(row.getItem());
-						}
 						else if (row.getItem().getCompleted().equals("C"))
 							InterfaceLauncher.CurrentUser.removeCompletedTask(row.getItem());
 						
 					}
 				});
+				// Complete task right click option
+				completeTaskItem.setOnAction(new EventHandler<ActionEvent>()
+				{
+					@Override
+					public void handle(ActionEvent event)
+					{
+						if (row.getItem().getCompleted().equals(""))
+							InterfaceLauncher.CurrentUser.completeTask(row.getItem());
+						refreshList();
+						for(Task t: InterfaceLauncher.CurrentUser.getTasks())
+						{
+							System.out.println("Task: " + t.getTaskName());
+						}
+						for(Task t: InterfaceLauncher.CurrentUser.getCompletedTasks())
+						{
+							System.out.println("Completed Task: " + t.getTaskName());
+						}
+					}
+				});
 				contextMenu.getItems().add(editTaskItem);
+				contextMenu.getItems().add(completeTaskItem);
 				contextMenu.getItems().add(removeTaskItem);
 				row.contextMenuProperty()
 						.bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
 				return row;
 			}
 		});
+	}
+	
+	private void filter()
+	{
+		System.out.println("Filter");
+		CalendarMenuItem cM = (CalendarMenuItem) datePickerMenuItem;
+		Filter f = Filter.create(categoryItems, priorityItems, dateItems.subList(0, 3), cM);
+		System.out.println("Normal list size: " + InterfaceLauncher.CurrentUser.getTasks().size());
+		System.out.println("Filtered list size: " + f.filter(InterfaceLauncher.CurrentUser.getTasks()).size());
 	}
 	
 	private ChangeListener<? super Task> extracted()
@@ -356,6 +398,43 @@ public class MainController implements Initializable
 		tasks = FXCollections.observableArrayList(user.getTasks());
 		tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
 		TaskTable.setItems(tasks);
+		
+		/* Refresh Categories */
+		categoryItems = new ArrayList<>();
+		final ContextMenu categoryMenu = new ContextMenu();
+		ArrayList<String> categories = getCategories();
+		/* Add menu items */
+		for (String s : categories)
+		{
+			categoryItems.add(new CheckMenuItem(s));
+		}
+		/* Add handler to all menu items */
+		for (CheckMenuItem i : categoryItems)
+		{
+			i.setSelected(true);
+			i.setOnAction(new EventHandler<ActionEvent>()
+			{
+				public void handle(ActionEvent e)
+				{
+					/* Handler for all menu items */
+					/*
+					 * To get name of clicked item use: ((CheckMenuItem)
+					 * (e.getSource())).getText()
+					 */
+					// CATEGORY FILTERS
+					System.out.println("Refresh list");
+					System.out.println(((CheckMenuItem) (e.getSource())).getText() + " Enabled: "
+							+ ((CheckMenuItem) (e.getSource())).isSelected());
+				}
+			});
+		}
+		/* Add items to the menu */
+		for (CheckMenuItem i : categoryItems)
+		{
+			categoryMenu.getItems().add(i);
+		}
+		/* Set menu to column */
+		CategoryColumn.setContextMenu(categoryMenu);
 	}
 	
 	private ArrayList<String> getCategories()
@@ -384,11 +463,13 @@ public class MainController implements Initializable
 	public static class CalendarMenuItem extends CustomMenuItem
 	{
 		static DatePicker datePicker = new DatePicker(LocalDate.now());
+		
 		public CalendarMenuItem()
 		{
 			super(datePicker);
 			setHideOnClick(false);
 		}
+		
 		public LocalDate getDate()
 		{
 			return datePicker.getValue();

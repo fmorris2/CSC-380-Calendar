@@ -47,6 +47,27 @@ public class LoginController implements Initializable
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	private void recoverHandle(ActionEvent event)
+	{
+		Parent recover;
+		try
+		{
+			recover = FXMLLoader.load(getClass().getResource("AccountRecoveryScreen.fxml"));
+			Stage recoverStage = new Stage();
+			Scene recoverScene = new Scene(recover);
+			recoverStage.setTitle("Recovery");
+			recoverStage.setScene(recoverScene);
+			recoverStage.show();
+			Stage stage = (Stage) SystemMessageLabelLogin.getScene().getWindow();
+			stage.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	public void onEnter(ActionEvent event)
