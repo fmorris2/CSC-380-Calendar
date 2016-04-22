@@ -94,7 +94,7 @@ public class User
 		task.setCompleted("C");
 		this.completedTasks.add(task);
 		DBUserFunctions.saveBlob(this, "tasks", tasks);
-		DBUserFunctions.saveBlob(this, "completedTasks", tasks);
+		DBUserFunctions.saveBlob(this, "completedTasks", completedTasks);
 		return task;
 	}
 	
