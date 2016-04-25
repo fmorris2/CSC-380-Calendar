@@ -11,6 +11,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -76,7 +77,9 @@ public class EditTaskController implements Initializable
 			{
 				user.addNewTask(task);
 				user.removeTask(currentTask);
-				parent.refreshList();
+				List<Task> filtered = parent.filter();
+				parent.updateTaskDisplay(filtered);
+				parent.refreshMenuItems(filtered);
 			}
 			Stage stage = (Stage) taskNameFieldTask.getScene().getWindow();
 			stage.close();

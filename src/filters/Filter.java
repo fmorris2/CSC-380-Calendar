@@ -82,9 +82,9 @@ public abstract class Filter
 		LocalDateTime ldt = LocalDateTime.of(d.getYear(), d.getMonth(), d.getDayOfMonth(), 0, 0);
 		
 		System.out.println("Adding date " + ldt + " to filter");
-		dateFilter = new DueDateFilter(ldt, orderArr);
+		//dateFilter = new DueDateFilter(ldt, orderArr);
 		
-		return categoryFilter.and(priorityFilter).and(dateFilter);
+		return categoryFilter.and(priorityFilter);//.and(dateFilter);
 	}
 	
 	/**
