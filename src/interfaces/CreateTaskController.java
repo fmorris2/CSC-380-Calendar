@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import task.Priority;
 import task.Task;
 import user.User;
+
 /**
  * Class handles create new task button.
  * @author noybo_000
@@ -77,7 +79,16 @@ public class CreateTaskController implements Initializable
 			String taskDescription = taskDescriptionFieldTask.getText();
 			Priority priority = Priority.valueOf(priorityFieldTask.getValue());
 			Task task = new Task(dueDate, duration, taskName, taskDescription, category, priority);
+			boolean containsCategory = parent.getCategories(user.getTasks()).contains(category);
 			user.addNewTask(task);
+			if(!containsCategory)
+			{
+				System.out.println("Doesnt contain category... adding it to categoryItems");
+				CheckMenuItem cM = new CheckMenuItem(category);
+				cM.setSelected(true);
+				parent.categoryItems.add(cM);
+			}
+			System.out.println("User tasks size: " + user.getTasks().size());
 			List<Task> filtered = parent.filter();
 			parent.updateTaskDisplay(filtered);
 			parent.refreshMenuItems(filtered);

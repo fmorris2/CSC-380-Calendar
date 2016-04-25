@@ -1,16 +1,17 @@
 package filters;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import filters.combination.impl.AndFilter;
 import filters.combination.impl.OrFilter;
 import filters.date.impl.DueDateFilter;
 import filters.impl.CategoryFilter;
 import filters.impl.PriorityFilter;
 import interfaces.MainController.CalendarMenuItem;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.control.CheckMenuItem;
 import task.Priority;
 import task.Task;
@@ -70,21 +71,30 @@ public abstract class Filter
 		}
 		
 		//dates last
-		Order[] orderArr = new Order[orders.size()];
-		for(int i = 0; i < orderArr.length; i++)
+		List<Order> orderList = new ArrayList<>();
+		for(CheckMenuItem order : orders)
 		{
-			Order o = Order.valueOf(orders.get(i).getText());
-			System.out.println("Adding order " + o + " to filter");
-			orderArr[i] = o;
+			if(order.isSelected())
+			{
+				Order o = Order.valueOf(order.getText());
+				System.out.println("Adding order " + o + " to filter");
+				orderList.add(o);
+			}
 		}
 		
 		LocalDate d = date.getDate();
 		LocalDateTime ldt = LocalDateTime.of(d.getYear(), d.getMonth(), d.getDayOfMonth(), 0, 0);
 		
 		System.out.println("Adding date " + ldt + " to filter");
-		//dateFilter = new DueDateFilter(ldt, orderArr);
+		dateFilter = new DueDateFilter(ldt, orderList.toArray(new Order[orderList.size()]));
 		
-		return categoryFilter.and(priorityFilter);//.and(dateFilter);
+		if(categoryFilter == null)
+			categoryFilter = new CategoryFilter("");
+		
+		if(priorityFilter == null)
+			priorityFilter = new PriorityFilter(null);
+		
+		return categoryFilter.and(priorityFilter).and(dateFilter);
 	}
 	
 	/**

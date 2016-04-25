@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-import filters.Filter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -35,6 +36,7 @@ import javafx.util.Callback;
 import task.Priority;
 import task.Task;
 import user.User;
+import filters.Filter;
 
 /**
  *
@@ -159,7 +161,7 @@ public class MainController implements Initializable
 		final ContextMenu categoryMenu = new ContextMenu();
 		/* List of items to put into the list */
 		categoryItems = new ArrayList<>();
-		ArrayList<String> categories = getCategories(tasks);
+		Set<String> categories = getCategories(tasks);
 		/* Add menu items */
 		for (String s : categories)
 		{
@@ -330,13 +332,28 @@ public class MainController implements Initializable
 					@Override
 					public void handle(ActionEvent event)
 					{
-						TaskTable.getItems().remove(row.getItem());
-						updateTaskDisplay(filter());
+						Task t = row.getItem();
 						if (row.getItem().getCompleted().equals(""))
-							InterfaceLauncher.CurrentUser.removeTask(row.getItem());
+							InterfaceLauncher.CurrentUser.removeTask(t);
 						else if (row.getItem().getCompleted().equals("C"))
-							InterfaceLauncher.CurrentUser.removeCompletedTask(row.getItem());
+							InterfaceLauncher.CurrentUser.removeCompletedTask(t);
 						
+						if(!getCategories(InterfaceLauncher.CurrentUser.getTasks()).contains(t.getCategory()))
+						{
+							for(int i = 0; i < categoryItems.size(); i++)
+							{
+								System.out.println("Comparing " + categoryItems.get(i).getText() + " to " + t.getCategory());
+								if(categoryItems.get(i).getText().equals(t.getCategory()))
+								{
+									categoryItems.remove(i);
+									categoryMenu.getItems().remove(i);
+									System.out.println("Removed " + t.getCategory());
+								}
+							}
+						}
+						
+						TaskTable.getItems().remove(t);
+						updateTaskDisplay(filter());
 					}
 				});
 				// Complete task right click option
@@ -425,17 +442,27 @@ public class MainController implements Initializable
 		TaskTable.setItems(tasks);
 	}
 	
+	public Set<String> getCategories(List<Task> tasks)
+	{
+		Set<String> set = new HashSet<>();
+		
+		for(Task t : tasks)
+			set.add(t.getCategory());
+		
+		return set;
+	}
+	
+	private void fillCategories(List<Task> tasks)
+	{
+		System.out.println("Fill categories");
+		for(String category : getCategories(tasks))
+			categoryItems.add(new CheckMenuItem(category));
+	}
+	
 	public void refreshMenuItems(List<Task> taskList)
 	{		
-		/* Refresh Categories */
-		categoryItems = new ArrayList<>();
 		final ContextMenu categoryMenu = new ContextMenu();
-		ArrayList<String> categories = getCategories(taskList);
-		/* Add menu items */
-		for (String s : categories)
-		{
-			categoryItems.add(new CheckMenuItem(s));
-		}
+		//refreshCategories(taskList);
 		/* Add handler to all menu items */
 		for (CheckMenuItem i : categoryItems)
 		{
@@ -458,37 +485,15 @@ public class MainController implements Initializable
 			});
 		}
 		/* Add items to the menu */
+		if(categoryItems == null)
+			fillCategories(taskList);
+		
 		for (CheckMenuItem i : categoryItems)
 		{
 			categoryMenu.getItems().add(i);
 		}
 		/* Set menu to column */
 		CategoryColumn.setContextMenu(categoryMenu);
-	}
-	
-	private ArrayList<String> getCategories(List<Task> taskList)
-	{
-		ArrayList<String> arr = new ArrayList<String>();
-		//User user = InterfaceLauncher.CurrentUser;
-		for (Task t : taskList)
-		{
-			String cat = t.getCategory();
-			if (!arr.contains(cat))
-			{
-				arr.add(cat);
-			}
-		}
-		/*
-		for (Task t : user.getCompletedTasks())
-		{
-			String cat = t.getCategory();
-			if (!arr.contains(cat))
-			{
-				arr.add(cat);
-			}
-		}
-		*/
-		return arr;
 	}
 	
 	public static class CalendarMenuItem extends CustomMenuItem

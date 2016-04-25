@@ -19,18 +19,17 @@ public class DueDateFilter extends DateFilter
 		if(order.length == 0)
 			return false;
 		
+		int dueDay = t.getDueDate().getYear() + t.getDueDate().getDayOfYear();
+		int day = date.getYear() + date.getDayOfYear();
+		
 		for (Order o : order)
 		{
-			if (o == Order.BEFORE && date.isBefore(t.getDueDate()))
-				continue;
-			else if (o == Order.AFTER && date.isAfter(t.getDueDate()))
-				continue;
-			else if (o == Order.EQUAL && date.equals(t.getDueDate()))
-				continue;
-			
-			return false;
+			if (o == Order.BEFORE && dueDay < day
+					|| o == Order.AFTER && dueDay > day
+					|| o == Order.EQUAL && dueDay == day)
+				return true;
 		}
 		
-		return true;
+		return false;
 	}
 }
