@@ -66,10 +66,8 @@ public class BasicSender
 			
 			while (rs.next())
 			{
-				User user = new User();
+				User user = new User(rs.getString("username"), rs.getString("password"));
 				
-				user.setUsername(rs.getString("username"));
-				user.setPassword(rs.getString("password"));
 				DBUserFunctions.login(user);
 				
 				reminders.putIfAbsent(user, user.getTasks());
