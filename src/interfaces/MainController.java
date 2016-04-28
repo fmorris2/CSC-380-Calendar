@@ -363,8 +363,12 @@ public class MainController implements Initializable
 					public void handle(ActionEvent event)
 					{
 						if (row.getItem().getCompleted().equals(""))
+						{
+							System.out.println("Complete Task in MainController");
 							InterfaceLauncher.CurrentUser.completeTask(row.getItem());
-						
+							System.out.println("Task completed value: " + row.getItem().getCompleted());
+						}
+							
 						updateTaskDisplay(filter());
 					}
 				});
@@ -410,6 +414,7 @@ public class MainController implements Initializable
 		CalendarMenuItem cM = (CalendarMenuItem) datePickerMenuItem;
 		Filter f = Filter.create(categoryItems, priorityItems, dateItems.subList(0, 3), cM);
 		System.out.println("Normal list size: " + InterfaceLauncher.CurrentUser.getTasks().size());
+		System.out.println("Completed list size: " + InterfaceLauncher.CurrentUser.getCompletedTasks().size());
 		List<Task> toFilter = new ArrayList<>(InterfaceLauncher.CurrentUser.getTasks());
 		toFilter.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
 		
@@ -436,10 +441,10 @@ public class MainController implements Initializable
 	
 	public void updateTaskDisplay(List<Task> taskList)
 	{
-		//User user = InterfaceLauncher.CurrentUser;
 		tasks = FXCollections.observableArrayList(taskList);
-		//tasks.addAll(InterfaceLauncher.CurrentUser.getCompletedTasks());
+	
 		TaskTable.setItems(tasks);
+		TaskTable.refresh();
 	}
 	
 	public Set<String> getCategories(List<Task> tasks)

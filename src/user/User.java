@@ -90,6 +90,7 @@ public class User
 	 */
 	public Task completeTask(Task task)
 	{
+		System.out.println("Complete task in User.java");
 		this.tasks.remove(task);
 		task.setCompleted("C");
 		this.completedTasks.add(task);
