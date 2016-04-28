@@ -46,7 +46,7 @@ public class BasicSender
 						 
 						 //IF REMINDER NEEDS TO BE SENT 
 						 if(r.remindTime())
-							 sendReminder(u, t); t.removeReminder(u, i);
+							 {sendReminder(u, t); t.removeReminder(u, i);}
 						 
 					}
 				}
