@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
 
@@ -13,7 +14,7 @@
             <Button layoutX="232.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleAddReminderListener" text="Submit" />
             <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="118.0" text="Add New Reminder" />
             <Label layoutX="16.0" layoutY="47.0" text="Please select when you would like to be reminded:" />
-            <ChoiceBox fx:id="intervalPickerReminder" layoutX="75.0" layoutY="77.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="intervalPickerReminder" layoutX="75.0" layoutY="77.0" prefWidth="150.0">
 	            <items>
 		        	<FXCollections fx:factory="observableArrayList">
 			          	<String fx:value="ONE_HOUR" />
