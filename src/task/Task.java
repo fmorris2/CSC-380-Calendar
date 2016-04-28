@@ -66,11 +66,12 @@ public class Task implements Serializable
 		
 	}
 	
-	public Reminder addReminder(Interval interval)
+	public Reminder addReminder(User user, Interval interval)
 	{
 		LocalDateTime dueDate = getDueDate();
 		Reminder reminder = new Reminder(dueDate, interval);
 		reminders.add(reminder);
+		DBUserFunctions.saveBlob(user, "tasks", user.getTasks());
 		return reminder;
 	}
 	

@@ -201,7 +201,7 @@ public class DBUserFunctions
 		System.out.println("Login: " + login(test));
 		System.out.println("Loaded account: " + test);
 		Task testTask = test.addNewTask(new Task());
-		testTask.addReminder(Interval.FIFTEEN_MINUTES);
+		testTask.addReminder(test, Interval.FIFTEEN_MINUTES);
 		System.out.println("Task list size: " + test.getTasks().size());
 		save(test);
 	}

@@ -5,6 +5,7 @@ import org.junit.Test;
 import reminders.Interval;
 import reminders.Reminder;
 import task.Task;
+import user.User;
 
 /**
  * This it the TaskTest class. It uses JUnit to test various aspects of the Test
@@ -24,7 +25,7 @@ public class TaskTest
 		// Create new task to test
 		Task t = new Task();
 		// Add a new comment to that task
-		Reminder r = t.addReminder(Interval.FIFTEEN_MINUTES);
+		Reminder r = t.addReminder(new User(), Interval.FIFTEEN_MINUTES);
 		assert(t.getReminders().contains(r));
 	}
 }

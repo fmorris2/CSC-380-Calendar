@@ -46,7 +46,7 @@ public class AddReminderController {
 	{
 		if(validFields())
 		{
-			currentTask.addReminder(Interval.valueOf(intervalPickerReminder.getValue()));
+			currentTask.addReminder(InterfaceLauncher.CurrentUser, Interval.valueOf(intervalPickerReminder.getValue()));
 			List<Task> filtered = parent.filter();
 			parent.updateTaskDisplay(filtered);
 			parent.refreshMenuItems(filtered);
