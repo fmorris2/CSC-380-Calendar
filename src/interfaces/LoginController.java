@@ -36,6 +36,9 @@ public class LoginController implements Initializable
 			account = FXMLLoader.load(getClass().getResource("CreateEditAccountScreen.fxml"));
 			Stage accountStage = new Stage();
 			Scene accountScene = new Scene(account);
+			account.setStyle("-fx-background-image: url('background.jpg'); " +
+			           "-fx-background-position: center center; " +
+			           "-fx-background-repeat: stretch;");
 			accountStage.setTitle("Create Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
@@ -57,6 +60,9 @@ public class LoginController implements Initializable
 			recover = FXMLLoader.load(getClass().getResource("AccountRecoveryScreen.fxml"));
 			Stage recoverStage = new Stage();
 			Scene recoverScene = new Scene(recover);
+			recover.setStyle("-fx-background-image: url('background.jpg'); " +
+			           "-fx-background-position: center center; " +
+			           "-fx-background-repeat: stretch;");
 			recoverStage.setTitle("Recovery");
 			recoverStage.setScene(recoverScene);
 			recoverStage.show();
@@ -96,6 +102,9 @@ public class LoginController implements Initializable
 			{
 				main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 				Scene mainScene = new Scene(main);
+				main.setStyle("-fx-background-image: url('background.jpg'); " +
+				           "-fx-background-position: center center; " +
+				           "-fx-background-repeat: stretch;");
 				stage.setTitle("Task Organizer");
 				stage.setScene(mainScene);
 				stage.show();

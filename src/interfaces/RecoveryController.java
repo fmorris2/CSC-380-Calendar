@@ -54,6 +54,7 @@ public class RecoveryController implements Initializable
 	@FXML
 	private void questionHandle(ActionEvent event)
 	{
+		questionField.setText("");
 		String username = usernameField.getText();
 		if (!username.equals(""))
 		{

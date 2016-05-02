@@ -95,6 +95,9 @@ public class MainController implements Initializable
 			CreateTaskController controller = fxmlLoader.<CreateTaskController> getController();
 			controller.setParent(cont);
 			Scene taskScene = new Scene(task);
+			task.setStyle("-fx-background-image: url('background.jpg'); " +
+			           "-fx-background-position: center center; " +
+			           "-fx-background-repeat: stretch;");
 			taskStage.setTitle("Create Task");
 			taskStage.setScene(taskScene);
 			taskStage.show();
@@ -114,6 +117,9 @@ public class MainController implements Initializable
 			account = FXMLLoader.load(getClass().getResource("CreateEditAccountScreen.fxml"));
 			Stage accountStage = new Stage();
 			Scene accountScene = new Scene(account);
+			account.setStyle("-fx-background-image: url('background.jpg'); " +
+			           "-fx-background-position: center center; " +
+			           "-fx-background-repeat: stretch;");
 			accountStage.setTitle("Edit Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
@@ -133,6 +139,9 @@ public class MainController implements Initializable
 			about = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));
 			Stage aboutStage = new Stage();
 			Scene aboutScene = new Scene(about);
+			about.setStyle("-fx-background-image: url('background.jpg'); " +
+			           "-fx-background-position: center center; " +
+			           "-fx-background-repeat: stretch;");
 			aboutStage.setTitle("About");
 			aboutStage.setScene(aboutScene);
 			aboutStage.show();
@@ -311,6 +320,9 @@ public class MainController implements Initializable
 							{
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditTaskScreen.fxml"));
 								task = (Parent) fxmlLoader.load();
+								task.setStyle("-fx-background-image: url('background.jpg'); " +
+								           "-fx-background-position: center center; " +
+								           "-fx-background-repeat: stretch;");
 								EditTaskController controller = fxmlLoader.<EditTaskController> getController();
 								controller.setTask(selectedTask);
 								controller.setParent(cont);
@@ -383,6 +395,9 @@ public class MainController implements Initializable
 						{
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewReminderWindow.fxml"));
 							reminder = (Parent) fxmlLoader.load();
+							reminder.setStyle("-fx-background-image: url('background.jpg'); " +
+							           "-fx-background-position: center center; " +
+							           "-fx-background-repeat: stretch;");
 							AddReminderController controller = fxmlLoader.<AddReminderController> getController();
 							controller.setTask(row.getItem());
 							controller.setParent(cont);

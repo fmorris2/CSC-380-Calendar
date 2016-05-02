@@ -74,6 +74,9 @@ public class AccountController implements Initializable
 					{
 						main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 						Scene mainScene = new Scene(main);
+						main.setStyle("-fx-background-image: url('background.jpg'); " +
+						           "-fx-background-position: center center; " +
+						           "-fx-background-repeat: stretch;");
 						stage.setTitle("Task Organizer");
 						stage.setScene(mainScene);
 						stage.show();
