@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import user.User;
 
@@ -22,10 +21,10 @@ public class InterfaceLauncher extends Application
 		Parent login = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
 		Stage loginStage = new Stage();
 		Scene loginScene = new Scene(login);
-		login.setStyle("-fx-background-image: url('background.jpg'); " +
+		/*login.setStyle("-fx-background-image: url('background.jpg'); " +
 		           "-fx-background-position: center center; " +
 		           "-fx-background-repeat: stretch;");
-		loginStage.getIcons().add(new Image("TOIcon.png"));
+		loginStage.getIcons().add(new Image("TOIcon.png"));*/
 		loginStage.setTitle("Login");
 		loginStage.setScene(loginScene);
 		loginStage.show();

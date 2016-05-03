@@ -75,9 +75,9 @@ public class Task implements Serializable
 		return reminder;
 	}
 	
-	public void removeReminder(User user, int i)
+	public void removeReminder(User user, Reminder r)
 	{
-		reminders.remove(i);
+		reminders.remove(r);
 		DBUserFunctions.saveBlob(user, "tasks", user.getTasks());
 	}
 	

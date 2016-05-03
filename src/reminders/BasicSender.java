@@ -36,18 +36,22 @@ public class BasicSender
 			
 			for (User u : reminders.keySet())
 			{
-				System.out.println(reminders.get(u).size());
+				System.out.println("Tasks: " + reminders.get(u).size());
 				for (Task t : u.getTasks())
 				{
+					System.out.println("	Reminders: " + t.getReminders().size());
 					for (int i = 0; i < t.getReminders().size(); i++)
 					{
 						
-						 Reminder r = t.getReminders().get(i);
-						 
-						 //IF REMINDER NEEDS TO BE SENT 
-						 if(r.remindTime())
-							 {sendReminder(u, t); t.removeReminder(u, i);}
-						 
+						Reminder r = t.getReminders().get(i);
+						
+						// IF REMINDER NEEDS TO BE SENT
+						if (r.remindTime())
+						{
+							sendReminder(u, t);
+							t.removeReminder(u, r);
+						}
+						
 					}
 				}
 			}
@@ -67,7 +71,7 @@ public class BasicSender
 			while (rs.next())
 			{
 				User user = new User(rs.getString("username"), rs.getString("password"));
-
+				
 				DBUserFunctions.login(user);
 				
 				reminders.putIfAbsent(user, user.getTasks());

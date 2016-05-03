@@ -17,9 +17,9 @@
             <ChoiceBox fx:id="intervalPickerReminder" layoutX="75.0" layoutY="77.0" prefWidth="150.0">
 	            <items>
 		        	<FXCollections fx:factory="observableArrayList">
-			          	<String fx:value="ONE_HOUR" />
-			          	<String fx:value="TWO_HOURS" />
 			          	<String fx:value="ONE_WEEK" />
+			          	<String fx:value="TWO_HOURS" />
+			          	<String fx:value="ONE_HOUR" />
 			          	<String fx:value="HALF_HOUR" />
 			          	<String fx:value="FIFTEEN_MINUTES" />
 			          	<String fx:value="TEN_MINUTES" />
