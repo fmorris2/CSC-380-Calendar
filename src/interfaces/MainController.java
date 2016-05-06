@@ -31,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import task.Priority;
@@ -95,9 +96,8 @@ public class MainController implements Initializable
 			CreateTaskController controller = fxmlLoader.<CreateTaskController> getController();
 			controller.setParent(cont);
 			Scene taskScene = new Scene(task);
-			/*task.setStyle("-fx-background-image: url('background.jpg'); " +
-			           "-fx-background-position: center center; " +
-			           "-fx-background-repeat: stretch;");*/
+			taskScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+			taskStage.getIcons().add(new Image("TOIcon.png"));
 			taskStage.setTitle("Create Task");
 			taskStage.setScene(taskScene);
 			taskStage.show();
@@ -117,9 +117,8 @@ public class MainController implements Initializable
 			account = FXMLLoader.load(getClass().getResource("CreateEditAccountScreen.fxml"));
 			Stage accountStage = new Stage();
 			Scene accountScene = new Scene(account);
-			/*account.setStyle("-fx-background-image: url('background.jpg'); " +
-			           "-fx-background-position: center center; " +
-			           "-fx-background-repeat: stretch;");*/
+			accountScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+			accountStage.getIcons().add(new Image("TOIcon.png"));
 			accountStage.setTitle("Edit Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
@@ -139,9 +138,8 @@ public class MainController implements Initializable
 			about = FXMLLoader.load(getClass().getResource("AboutScreen.fxml"));
 			Stage aboutStage = new Stage();
 			Scene aboutScene = new Scene(about);
-			/*about.setStyle("-fx-background-image: url('background.jpg'); " +
-			           "-fx-background-position: center center; " +
-			           "-fx-background-repeat: stretch;");*/
+			aboutScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+			aboutStage.getIcons().add(new Image("TOIcon.png"));
 			aboutStage.setTitle("About");
 			aboutStage.setScene(aboutScene);
 			aboutStage.show();
@@ -320,9 +318,8 @@ public class MainController implements Initializable
 							{
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditTaskScreen.fxml"));
 								task = (Parent) fxmlLoader.load();
-								/*task.setStyle("-fx-background-image: url('background.jpg'); " +
-								           "-fx-background-position: center center; " +
-								           "-fx-background-repeat: stretch;");*/
+								task.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+								taskStage.getIcons().add(new Image("TOIcon.png"));
 								EditTaskController controller = fxmlLoader.<EditTaskController> getController();
 								controller.setTask(selectedTask);
 								controller.setParent(cont);
@@ -395,9 +392,8 @@ public class MainController implements Initializable
 						{
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewReminderWindow.fxml"));
 							reminder = (Parent) fxmlLoader.load();
-							/*reminder.setStyle("-fx-background-image: url('background.jpg'); " +
-							           "-fx-background-position: center center; " +
-							           "-fx-background-repeat: stretch;");*/
+							reminder.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+							reminderStage.getIcons().add(new Image("TOIcon.png"));
 							AddReminderController controller = fxmlLoader.<AddReminderController> getController();
 							controller.setTask(row.getItem());
 							controller.setParent(cont);

@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import user.User;
 
@@ -36,9 +37,8 @@ public class LoginController implements Initializable
 			account = FXMLLoader.load(getClass().getResource("CreateEditAccountScreen.fxml"));
 			Stage accountStage = new Stage();
 			Scene accountScene = new Scene(account);
-			/*account.setStyle("-fx-background-image: url('background.jpg'); " +
-			           "-fx-background-position: center center; " +
-			           "-fx-background-repeat: stretch;");*/
+			accountScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+			accountStage.getIcons().add(new Image("TOIcon.png"));
 			accountStage.setTitle("Create Account");
 			accountStage.setScene(accountScene);
 			accountStage.show();
@@ -60,9 +60,8 @@ public class LoginController implements Initializable
 			recover = FXMLLoader.load(getClass().getResource("AccountRecoveryScreen.fxml"));
 			Stage recoverStage = new Stage();
 			Scene recoverScene = new Scene(recover);
-			/*recover.setStyle("-fx-background-image: url('background.jpg'); " +
-			           "-fx-background-position: center center; " +
-			           "-fx-background-repeat: stretch;");*/
+			recoverScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+			recoverStage.getIcons().add(new Image("TOIcon.png"));
 			recoverStage.setTitle("Recovery");
 			recoverStage.setScene(recoverScene);
 			recoverStage.show();
@@ -102,9 +101,8 @@ public class LoginController implements Initializable
 			{
 				main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 				Scene mainScene = new Scene(main);
-				/*main.setStyle("-fx-background-image: url('background.jpg'); " +
-				           "-fx-background-position: center center; " +
-				           "-fx-background-repeat: stretch;");*/
+				mainScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+				stage.getIcons().add(new Image("TOIcon.png"));
 				stage.setTitle("Task Organizer");
 				stage.setScene(mainScene);
 				stage.show();

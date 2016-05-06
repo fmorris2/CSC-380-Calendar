@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import user.User;
 
@@ -74,9 +75,8 @@ public class AccountController implements Initializable
 					{
 						main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 						Scene mainScene = new Scene(main);
-						/*main.setStyle("-fx-background-image: url('background.jpg'); " +
-						           "-fx-background-position: center center; " +
-						           "-fx-background-repeat: stretch;");*/
+						mainScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+						stage.getIcons().add(new Image("TOIcon.png"));
 						stage.setTitle("Task Organizer");
 						stage.setScene(mainScene);
 						stage.show();
