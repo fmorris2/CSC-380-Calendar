@@ -126,7 +126,7 @@ public class User
 	public Task removeCompletedTask(Task task)
 	{
 		this.completedTasks.remove(task);
-		DBUserFunctions.saveBlob(this, "completedTasks", tasks);
+		DBUserFunctions.saveBlob(this, "completedTasks", completedTasks);
 		return task;
 	}
 	
