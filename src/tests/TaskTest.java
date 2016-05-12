@@ -26,6 +26,6 @@ public class TaskTest
 		Task t = new Task();
 		// Add a new comment to that task
 		Reminder r = t.addReminder(new User(), Interval.FIFTEEN_MINUTES);
-		assert(t.getReminders().contains(r));
+		assert (t.getReminders().contains(r));
 	}
 }

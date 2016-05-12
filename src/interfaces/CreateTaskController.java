@@ -27,6 +27,12 @@ import user.User;
  */
 import java.net.URL;
 
+/**
+ * Controller for the create new task window.
+ * 
+ * @author Noah Pierce
+ *
+ */
 public class CreateTaskController implements Initializable
 {
 	@FXML
@@ -52,6 +58,11 @@ public class CreateTaskController implements Initializable
 	User user;
 	MainController parent;
 	
+	/**
+	 * Redirects the ActionEvent param to the submit button listener
+	 * 
+	 * @param event
+	 */
 	@FXML
 	public void onEnter(ActionEvent event)
 	{
@@ -65,10 +76,17 @@ public class CreateTaskController implements Initializable
 		}
 	}
 	
+	/**
+	 * Takes in user input and checks that all fields are correctly filled out.
+	 * It then creates and saves the new task.
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	private void handleTaskSubmitListener(ActionEvent event) throws IOException
 	{
-		if(validFields())
+		if (validFields())
 		{
 			String taskName = taskNameFieldTask.getText();
 			String category = categoryFieldTask.getText();
@@ -81,7 +99,7 @@ public class CreateTaskController implements Initializable
 			Task task = new Task(dueDate, duration, taskName, taskDescription, category, priority);
 			boolean containsCategory = parent.getCategories(user.getTasks()).contains(category);
 			user.addNewTask(task);
-			if(!containsCategory)
+			if (!containsCategory)
 			{
 				System.out.println("Doesnt contain category... adding it to categoryItems");
 				CheckMenuItem cM = new CheckMenuItem(category);
@@ -101,24 +119,34 @@ public class CreateTaskController implements Initializable
 		}
 	}
 	
+	/**
+	 * Checks that all fields are correctly filled out
+	 * 
+	 * @return - Whether or not the fields are correctly filled out
+	 */
 	private boolean validFields()
 	{
-		if(!taskNameFieldTask.getText().equals("")
-				&& !categoryFieldTask.getText().equals("")
-				&& !durationFieldTask.getText().equals("")
-				&& durationFieldTask.getText().matches("\\d+")
-				&& !datePicker.getValue().equals(null)
-				&& !timeHoursFieldTask.getValue().equals(null)
-				&& !timeMinutesFieldTask.getValue().equals(null)
-				&& !timeFieldTask.getValue().equals(null)
-				&& !taskDescriptionFieldTask.getText().equals("")
-				&& !priorityFieldTask.getValue().equals(null))
+		if (!taskNameFieldTask.getText().equals("") && !categoryFieldTask.getText().equals("")
+				&& !durationFieldTask.getText().equals("") && durationFieldTask.getText().matches("\\d+")
+				&& !datePicker.getValue().equals(null) && !timeHoursFieldTask.getValue().equals(null)
+				&& !timeMinutesFieldTask.getValue().equals(null) && !timeFieldTask.getValue().equals(null)
+				&& !taskDescriptionFieldTask.getText().equals("") && !priorityFieldTask.getValue().equals(null))
 		{
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Takes in strings for various parts of a date and concatonates them into a
+	 * date string. Returns the LocalDateTime object
+	 * 
+	 * @param date
+	 * @param hour
+	 * @param minutes
+	 * @param time
+	 * @return
+	 */
 	private LocalDateTime makeLocalDateTime(LocalDate date, String hour, String minutes, String time)
 	{
 		String stringDate;
@@ -126,7 +154,7 @@ public class CreateTaskController implements Initializable
 		{
 			stringDate = date + "T" + hour + ":" + minutes + ":00.000";
 		}
-		else if(Integer.parseInt(hour) == 12)
+		else if (Integer.parseInt(hour) == 12)
 		{
 			String hours;
 			if (time.equalsIgnoreCase("AM"))
@@ -145,12 +173,20 @@ public class CreateTaskController implements Initializable
 		return dateTime;
 	}
 	
+	/**
+	 * Run every time a new create task screen is made
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		this.user = InterfaceLauncher.CurrentUser;
 	}
 	
+	/**
+	 * Sets parent controller
+	 * 
+	 * @param p
+	 */
 	public void setParent(MainController p)
 	{
 		parent = p;

@@ -40,7 +40,8 @@ import user.User;
 import filters.Filter;
 
 /**
- *
+ * Controller for the main window
+ * 
  * @author Mike Mekker
  */
 public class MainController implements Initializable
@@ -108,6 +109,11 @@ public class MainController implements Initializable
 		}
 	}
 	
+	/**
+	 * Listener for the File->Edit Account button
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void handleFileEditAccountAction(ActionEvent event)
 	{
@@ -129,6 +135,11 @@ public class MainController implements Initializable
 		}
 	}
 	
+	/**
+	 * Listener for the File->About button
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void handleAboutAction(ActionEvent event)
 	{
@@ -150,6 +161,10 @@ public class MainController implements Initializable
 		}
 	}
 	
+	/**
+	 * Run whenever a new instance of this controller is run. Sets up the main
+	 * list and context menus for both the list and columns
+	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
@@ -318,7 +333,8 @@ public class MainController implements Initializable
 							{
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditTaskScreen.fxml"));
 								task = (Parent) fxmlLoader.load();
-								task.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+								task.getStylesheets()
+										.add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
 								taskStage.getIcons().add(new Image("TOIcon.png"));
 								EditTaskController controller = fxmlLoader.<EditTaskController> getController();
 								controller.setTask(selectedTask);
@@ -347,12 +363,13 @@ public class MainController implements Initializable
 						else if (row.getItem().getCompleted().equals("C"))
 							InterfaceLauncher.CurrentUser.removeCompletedTask(t);
 						
-						if(!getCategories(InterfaceLauncher.CurrentUser.getTasks()).contains(t.getCategory()))
+						if (!getCategories(InterfaceLauncher.CurrentUser.getTasks()).contains(t.getCategory()))
 						{
-							for(int i = 0; i < categoryItems.size(); i++)
+							for (int i = 0; i < categoryItems.size(); i++)
 							{
-								System.out.println("Comparing " + categoryItems.get(i).getText() + " to " + t.getCategory());
-								if(categoryItems.get(i).getText().equals(t.getCategory()))
+								System.out.println(
+										"Comparing " + categoryItems.get(i).getText() + " to " + t.getCategory());
+								if (categoryItems.get(i).getText().equals(t.getCategory()))
 								{
 									categoryItems.remove(i);
 									categoryMenu.getItems().remove(i);
@@ -377,7 +394,7 @@ public class MainController implements Initializable
 							InterfaceLauncher.CurrentUser.completeTask(row.getItem());
 							System.out.println("Task completed value: " + row.getItem().getCompleted());
 						}
-							
+						
 						updateTaskDisplay(filter());
 					}
 				});
@@ -392,7 +409,8 @@ public class MainController implements Initializable
 						{
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewReminderWindow.fxml"));
 							reminder = (Parent) fxmlLoader.load();
-							reminder.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+							reminder.getStylesheets()
+									.add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
 							reminderStage.getIcons().add(new Image("TOIcon.png"));
 							AddReminderController controller = fxmlLoader.<AddReminderController> getController();
 							controller.setTask(row.getItem());
@@ -419,6 +437,11 @@ public class MainController implements Initializable
 		});
 	}
 	
+	/**
+	 * Takes the current list of tasks and returns a filtered list
+	 * 
+	 * @return - filtered list
+	 */
 	public List<Task> filter()
 	{
 		System.out.println("Filter");
@@ -434,6 +457,10 @@ public class MainController implements Initializable
 		return filtered;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private ChangeListener<? super Task> extracted()
 	{
 		return (ChangeListener<? super Task>) (observableValue, oldValue, newValue) -> {
@@ -450,19 +477,30 @@ public class MainController implements Initializable
 		};
 	}
 	
+	/**
+	 * Refilters and refreshes list of tasks
+	 * 
+	 * @param taskList
+	 */
 	public void updateTaskDisplay(List<Task> taskList)
 	{
 		tasks = FXCollections.observableArrayList(taskList);
-	
+		
 		TaskTable.setItems(tasks);
 		TaskTable.refresh();
 	}
 	
+	/**
+	 * Get the current list categories in the task list
+	 * 
+	 * @param tasks
+	 * @return
+	 */
 	public Set<String> getCategories(List<Task> tasks)
 	{
 		Set<String> set = new HashSet<>();
 		
-		for(Task t : tasks)
+		for (Task t : tasks)
 			set.add(t.getCategory());
 		
 		return set;
@@ -471,14 +509,14 @@ public class MainController implements Initializable
 	private void fillCategories(List<Task> tasks)
 	{
 		System.out.println("Fill categories");
-		for(String category : getCategories(tasks))
+		for (String category : getCategories(tasks))
 			categoryItems.add(new CheckMenuItem(category));
 	}
 	
 	public void refreshMenuItems(List<Task> taskList)
-	{		
+	{
 		final ContextMenu categoryMenu = new ContextMenu();
-		//refreshCategories(taskList);
+		// refreshCategories(taskList);
 		/* Add handler to all menu items */
 		for (CheckMenuItem i : categoryItems)
 		{
@@ -501,7 +539,7 @@ public class MainController implements Initializable
 			});
 		}
 		/* Add items to the menu */
-		if(categoryItems == null)
+		if (categoryItems == null)
 			fillCategories(taskList);
 		
 		for (CheckMenuItem i : categoryItems)

@@ -15,7 +15,14 @@ import reminders.Interval;
 import task.Task;
 import user.User;
 
-public class AddReminderController {
+/**
+ * Controller for the reminder creation class
+ * 
+ * @author Noah Pierce
+ *
+ */
+public class AddReminderController
+{
 	
 	@FXML
 	DatePicker datePickerReminders;
@@ -27,7 +34,11 @@ public class AddReminderController {
 	Task currentTask;
 	MainController parent;
 	
-	
+	/**
+	 * Redirects the ActionEvent param to the submit listener
+	 * 
+	 * @param event
+	 */
 	@FXML
 	public void onEnter(ActionEvent event)
 	{
@@ -41,10 +52,17 @@ public class AddReminderController {
 		}
 	}
 	
+	/**
+	 * Listener for the submit button. Checks fields and creates new reminder.
+	 * Saves new reminder to the server.
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	private void handleAddReminderListener(ActionEvent event) throws IOException
 	{
-		if(validFields())
+		if (validFields())
 		{
 			currentTask.addReminder(InterfaceLauncher.CurrentUser, Interval.valueOf(intervalPickerReminder.getValue()));
 			List<Task> filtered = parent.filter();
@@ -58,25 +76,49 @@ public class AddReminderController {
 			SystemMessage.setText("One or more fields are incorrectly filled out.");
 		}
 	}
-
-	private boolean validFields() {
-		if (!intervalPickerReminder.getValue().toString().equals("")){
+	
+	/**
+	 * Checks that all fields are correctly filled out.
+	 * 
+	 * @return - Whether or not the fields are correctly filled out
+	 */
+	private boolean validFields()
+	{
+		if (!intervalPickerReminder.getValue().toString().equals(""))
+		{
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Ran every time this screen is opened
+	 * 
+	 * @param location
+	 * @param resources
+	 */
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		this.user = InterfaceLauncher.CurrentUser;
 		
 	}
 	
+	/**
+	 * Sets the parent variable
+	 * 
+	 * @param p
+	 *            - parent controller
+	 */
 	public void setParent(MainController p)
 	{
 		parent = p;
 	}
 	
+	/**
+	 * Set current task that the reminder is being added to
+	 * 
+	 * @param t
+	 */
 	public void setTask(Task t)
 	{
 		currentTask = t;

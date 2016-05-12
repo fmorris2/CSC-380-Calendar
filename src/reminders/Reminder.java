@@ -3,6 +3,9 @@ package reminders;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author Noah Pierce
+ */
 public class Reminder implements Serializable
 {
 	private static final long serialVersionUID = -3945751016286710063L;
@@ -21,8 +24,8 @@ public class Reminder implements Serializable
 		LocalDateTime now = LocalDateTime.now();
 		if (!reminderSent && (dueDate.isBefore(now) || dueDate.equals(now)))
 		{
-				reminderSent = true;
-				return true;
+			reminderSent = true;
+			return true;
 		}
 		return false;
 	}

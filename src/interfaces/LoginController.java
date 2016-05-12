@@ -18,14 +18,23 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import user.User;
 
+/**
+ * Controller for the login screen
+ * 
+ * @author Noah Pierce
+ */
 public class LoginController implements Initializable
 {
-	@FXML Label SystemMessageLabelLogin;
-	@FXML TextField usernameFieldLogin;
-	@FXML PasswordField passwordFieldLogin;
+	@FXML
+	Label SystemMessageLabelLogin;
+	@FXML
+	TextField usernameFieldLogin;
+	@FXML
+	PasswordField passwordFieldLogin;
 	
 	/**
 	 * Action for create account button
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -51,6 +60,11 @@ public class LoginController implements Initializable
 		}
 	}
 	
+	/**
+	 * Listener for the account recovery button
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void recoverHandle(ActionEvent event)
 	{
@@ -73,7 +87,12 @@ public class LoginController implements Initializable
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Redirects the ActionEvent param to the login submit button
+	 * 
+	 * @param event
+	 */
 	@FXML
 	public void onEnter(ActionEvent event)
 	{
@@ -83,17 +102,19 @@ public class LoginController implements Initializable
 	@FXML
 	/**
 	 * Action for Login Button
+	 * 
 	 * @param event
 	 */
 	private void handleLoginAction(ActionEvent event)
 	{
 		User currentUser = correctLogin(usernameFieldLogin.getText(), passwordFieldLogin.getText());
-		if (currentUser != null){
+		if (currentUser != null)
+		{
 			SystemMessageLabelLogin.setText("Login successful");
 			usernameFieldLogin.setText("");
 			passwordFieldLogin.setText("");
 			InterfaceLauncher.setCurrentUser(currentUser);
-			//Pull user data from database
+			// Pull user data from database
 			Stage stage = (Stage) SystemMessageLabelLogin.getScene().getWindow();
 			stage.close();
 			Parent main;
@@ -111,18 +132,29 @@ public class LoginController implements Initializable
 			{
 				e.printStackTrace();
 			}
-		} else {
+		}
+		else
+		{
 			SystemMessageLabelLogin.setText("Incorrect Username or Password");
 			passwordFieldLogin.setText("");
 		}
 		
 	}
-	private User correctLogin(String username, String password) 
+	
+	/**
+	 * Takes in a username and password and checks that there exists a user with
+	 * that username and that its password is the same and the one given.
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	private User correctLogin(String username, String password)
 	{
 		User user = new User(username, password);
 		return DBUserFunctions.login(user) ? user : null;
 	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{

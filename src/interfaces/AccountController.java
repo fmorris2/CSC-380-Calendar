@@ -18,6 +18,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import user.User;
 
+/**
+ * Account creation and editing screen. Takes input from the user and either
+ * edits or creates the account.
+ * 
+ * @author Mike Mekker
+ *
+ */
 public class AccountController implements Initializable
 {
 	@FXML
@@ -39,12 +46,24 @@ public class AccountController implements Initializable
 	@FXML
 	Label SystemMessage;
 	
+	/**
+	 * onEnter(ActionEvent) - Redirects the event to the normal submit listener.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	public void onEnter(ActionEvent event)
 	{
 		handleCreateAccountSubmitListener(event);
 	}
 	
+	/**
+	 * - Takes values from all fields - Checks that they are all valid - Checks
+	 * if the window is for creating an account or editing one - Either creates
+	 * or edits an account - Saves account to server
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void handleCreateAccountSubmitListener(ActionEvent event)
 	{
@@ -75,7 +94,8 @@ public class AccountController implements Initializable
 					{
 						main = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 						Scene mainScene = new Scene(main);
-						mainScene.getStylesheets().add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
+						mainScene.getStylesheets()
+								.add(InterfaceLauncher.class.getResource("MainStyle.css").toExternalForm());
 						stage.getIcons().add(new Image("TOIcon.png"));
 						stage.setTitle("Task Organizer");
 						stage.setScene(mainScene);
@@ -104,12 +124,15 @@ public class AccountController implements Initializable
 				SystemMessage.setText("Passwords don't match.");
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			SystemMessage.setText("Fields are filled out incorrectly.");
 		}
 	}
 	
+	/**
+	 * Initialize is run every time a new instance of this screen is opened.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{

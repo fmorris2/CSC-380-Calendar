@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
+/**
+ * Controller class for the About screen. Currently used.
+ * 
+ * @author Mike Mekker
+ */
 public class AboutController implements Initializable
 {
 	

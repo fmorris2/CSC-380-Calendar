@@ -9,13 +9,17 @@ import javafx.stage.Stage;
 import user.User;
 
 /**
- *
+ * Main Launcher for application
+ * 
  * @author Mike Mekker
  */
 public class InterfaceLauncher extends Application
 {
 	public static User CurrentUser;
 	
+	/**
+	 * Starts the interface.
+	 */
 	@Override
 	public void start(Stage stage) throws Exception
 	{
@@ -32,13 +36,19 @@ public class InterfaceLauncher extends Application
 	
 	/**
 	 * @param args
-	 *            the command line arguments
+	 *            - the command line arguments
 	 */
 	public static void main(String[] args)
 	{
 		launch(args);
 	}
 	
+	/**
+	 * Sets the current user for this session
+	 * 
+	 * @param u
+	 *            - User
+	 */
 	public static void setCurrentUser(User u)
 	{
 		CurrentUser = u;

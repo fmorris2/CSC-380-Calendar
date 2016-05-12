@@ -27,6 +27,11 @@ import task.Priority;
 import task.Task;
 import user.User;
 
+/**
+ * Controller for the Edit task screen.
+ * 
+ * @author Mike Mekker
+ */
 public class EditTaskController implements Initializable
 {
 	@FXML
@@ -53,16 +58,29 @@ public class EditTaskController implements Initializable
 	Task currentTask;
 	MainController parent;
 	
+	/**
+	 * Redirects the ActionEvent param to the submit button listener
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	public void onEnter(ActionEvent event) throws IOException
 	{
 		handleTaskSubmitListener(event);
 	}
 	
+	/**
+	 * Takes in user input and validates field values. Creates and overwrites
+	 * existing task if fields are correct.
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	private void handleTaskSubmitListener(ActionEvent event) throws IOException
 	{
-		if(validFields())
+		if (validFields())
 		{
 			String taskName = taskNameFieldTask.getText();
 			String category = categoryFieldTask.getText();
@@ -90,24 +108,34 @@ public class EditTaskController implements Initializable
 		}
 	}
 	
+	/**
+	 * Checks that all fields are valid
+	 * 
+	 * @return
+	 */
 	private boolean validFields()
 	{
-		if(!taskNameFieldTask.getText().equals("")
-				&& !categoryFieldTask.getText().equals("")
-				&& !durationFieldTask.getText().equals("")
-				&& durationFieldTask.getText().matches("\\d+")
-				&& !datePicker.getValue().equals(null)
-				&& !timeHoursFieldTask.getValue().equals(null)
-				&& !timeMinutesFieldTask.getValue().equals(null)
-				&& !timeFieldTask.getValue().equals(null)
-				&& !taskDescriptionFieldTask.getText().equals("")
-				&& !priorityFieldTask.getValue().equals(null))
+		if (!taskNameFieldTask.getText().equals("") && !categoryFieldTask.getText().equals("")
+				&& !durationFieldTask.getText().equals("") && durationFieldTask.getText().matches("\\d+")
+				&& !datePicker.getValue().equals(null) && !timeHoursFieldTask.getValue().equals(null)
+				&& !timeMinutesFieldTask.getValue().equals(null) && !timeFieldTask.getValue().equals(null)
+				&& !taskDescriptionFieldTask.getText().equals("") && !priorityFieldTask.getValue().equals(null))
 		{
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Takes in strings for various parts of a date and concatonates them into a
+	 * date string. Returns the LocalDateTime object
+	 * 
+	 * @param date
+	 * @param hour
+	 * @param minutes
+	 * @param time
+	 * @return
+	 */
 	private LocalDateTime makeLocalDateTime(LocalDate date, String hour, String minutes, String time)
 	{
 		String stringDate;
@@ -125,12 +153,21 @@ public class EditTaskController implements Initializable
 		return dateTime;
 	}
 	
+	/**
+	 * Run every time a new create task screen is made
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		this.user = InterfaceLauncher.CurrentUser;
 	}
 	
+	/**
+	 * Sets the target task to be edited
+	 * 
+	 * @param t
+	 *            - task to be edited
+	 */
 	public void setTask(Task t)
 	{
 		currentTask = t;
@@ -140,7 +177,8 @@ public class EditTaskController implements Initializable
 		datePicker.setValue(LocalDate.of(currentTask.getDueDate().getYear(), currentTask.getDueDate().getMonth(),
 				currentTask.getDueDate().getDayOfMonth()));
 		taskDescriptionFieldTask.setText(currentTask.getTaskDescription());
-		priorityFieldTask.getSelectionModel().select(t.getPriority().toString());;
+		priorityFieldTask.getSelectionModel().select(t.getPriority().toString());
+		;
 		if ((currentTask.getDueDate().getHour() % 12) < 10)
 			timeHoursFieldTask.setValue("0" + (currentTask.getDueDate().getHour() % 12));
 		else
@@ -155,11 +193,23 @@ public class EditTaskController implements Initializable
 			timeFieldTask.setValue("AM");
 	}
 	
+	/**
+	 * Sets parent controller
+	 * 
+	 * @param p
+	 */
 	public void setParent(MainController p)
 	{
 		parent = p;
 	}
 	
+	/**
+	 * Rounds a given number to the nearest 5
+	 * 
+	 * @param num
+	 *            - number to round
+	 * @return - rounded number
+	 */
 	public int roundToFives(int num)
 	{
 		int t = num % 10;

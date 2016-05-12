@@ -20,6 +20,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import user.User;
 
+/**
+ * Controller for the Account Recovery page
+ * 
+ * @author Mike Mekker
+ */
 public class RecoveryController implements Initializable
 {
 	@FXML
@@ -32,6 +37,11 @@ public class RecoveryController implements Initializable
 	Label SystemMessage;
 	User current;
 	
+	/**
+	 * Listener for the submit button
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void submitHandle(ActionEvent event)
 	{
@@ -51,6 +61,11 @@ public class RecoveryController implements Initializable
 			SystemMessage.setText("Please enter your username and click \"Get Question\"");
 	}
 	
+	/**
+	 * Get an accounts security question
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void questionHandle(ActionEvent event)
 	{
@@ -71,6 +86,11 @@ public class RecoveryController implements Initializable
 	{
 	}
 	
+	/**
+	 * Email password to the accounts email address
+	 * 
+	 * @return
+	 */
 	private boolean sendRecoveryMessage()
 	{
 		// Recipient's email id

@@ -19,7 +19,6 @@ public enum Priority implements Serializable
 		this.color = color;
 	}
 	
-	
 	public Color getColor()
 	{
 		return color;
